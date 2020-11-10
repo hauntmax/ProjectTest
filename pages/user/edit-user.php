@@ -3,18 +3,22 @@
 <?php include_once $_SERVER['DOCUMENT_ROOT']."/functions/validate_user.php" ?>
 <?php include_once $_SERVER['DOCUMENT_ROOT']."/functions/get_user.php"; ?>
 <?php include_once $_SERVER['DOCUMENT_ROOT']."/functions/edit_user.php"; ?>
+<?php include_once $_SERVER['DOCUMENT_ROOT']."/functions/is_unique_user.php" ?>
 
 <?php
+    $userDataPath = $_SERVER['DOCUMENT_ROOT']."/userdata";
     $user = get_user($_GET['id']);
     if(isset($_POST['submit'])) {
         $inputUserData = array(
             'id' => $_GET['id'],
             'name' => clean($_POST['name']),
             'email' => clean($_POST['email']),
-            'password' => sha1(clean($_POST['password'])),
+            'password' => clean($_POST['password']),
             'phone' => clean($_POST['phone'])
         );
-        edit_user($_SERVER['DOCUMENT_ROOT']."/userdata",$_GET['id'], $inputUserData);
+        if (is_unique_user($userDataPath, $inputUserData['email'])){
+            edit_user($userDataPath, $_GET['id'], $inputUserData);
+        }
     }
 ?>
 
@@ -33,7 +37,7 @@
         <p>
             <label for="password">Пароль </label>
             <input type="password" name="password" id="password"
-                   value="<?php if(isset($_POST["password"])) echo $_POST["password"]; else echo $user['password'] ?>">
+                   value="<?php if(isset($_POST["password"])) echo $_POST["password"] ?>">
         </p>
         <p>
             <label for="phone">Номер телефона </label>

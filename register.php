@@ -1,17 +1,24 @@
 <?php include_once $_SERVER['DOCUMENT_ROOT']."/header.php" ?>
 
 <?php include_once $_SERVER['DOCUMENT_ROOT']."/functions/save_user.php" ?>
+<?php include_once $_SERVER['DOCUMENT_ROOT'] . "/functions/is_unique_user.php" ?>
 
 <?php
 if(isset($_POST['submit'])) {
+    $userDataPath = $_SERVER['DOCUMENT_ROOT']."/userdata";
     $inputUserData = array(
         'id' => uniqid(),
         'name' => clean($_POST['name']),
         'email' => clean($_POST['email']),
-        'password' => password_hash(clean($_POST['password']), PASSWORD_DEFAULT),
+        'password' => clean($_POST['password']),
         'phone' => clean($_POST['phone'])
     );
-    save_user($_SERVER['DOCUMENT_ROOT']."/userdata", $inputUserData);
+    if (is_unique_user($userDataPath, $inputUserData['email'])){
+        save_user($userDataPath, $inputUserData);
+        login_user($userDataPath,
+            ['email' => $inputUserData['email'], 'password' => $inputUserData['password']]
+        );
+    }
 }
 ?>
 

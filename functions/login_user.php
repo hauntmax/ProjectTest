@@ -7,8 +7,8 @@ function login_user(string $path, array $loginData): bool {
     $users = get_users($path);
     foreach ($users as $user){
         if (($user['email'] == $loginData['email']) &&
-            password_verify($loginData['password'], $user['password']))
-        {
+            (password_verify($loginData['password'], $user['password']))
+        ) {
             $isRegistered = true;
             $_SESSION['userId'] = $user['id'];
             break;
