@@ -5,9 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="App/Public/css/style.css">
-    <link rel="stylesheet" href="App/Public/css/bootstrap.min.css">
-    <link rel="stylesheet" href="App/Public/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="/App/Public/css/style.css">
+    <link rel="stylesheet" href="/App/Public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/App/Public/css/bootstrap-grid.min.css">
     <title><?=$title?></title>
 </head>
 <body>
@@ -19,7 +19,7 @@
         <div class="top-menu">
             <ul>
                 <li><a href="/">Главная</a></li>
-                <li><a href="users">Пользователи</a></li>
+                <li><a href="/users">Пользователи</a></li>
                 <li><a href="#">Сущности</a></li>
             </ul>
         </div>
@@ -32,25 +32,25 @@
             <p>Разработка- это просто</p>
         </div>
 
-        <!-- блок с авторизацией -->
-<!--        --><?php //if (isset($_SESSION['authorize'])) {
-//            if ($_SESSION['authorize']) { ?>
-<!--                <div class="block-top-auth">-->
-<!--                    <p><a href="/pages/user/user.php?id=--><?//=$_SESSION['userId']?><!--">--><?//=$_SESSION['email']?><!--</a></p>-->
-<!--                    <p><a href="/logout.php">Выйти</a></p>-->
-<!--                </div>-->
-<!--            --><?php //} else { ?>
-<!--                <div class="block-top-auth">-->
-<!--                    <p><a href="/login.php">Вход</a></p>-->
-<!--                    <p><a href="/register.php">Регистрация</a></p>-->
-<!--                </div>-->
-<!--            --><?php //} ?>
-<!--        --><?php //} else { ?>
-<!--            <div class="block-top-auth">-->
-<!--                <p><a href="/login.php">Вход</a></p>-->
-<!--                <p><a href="/register.php">Регистрация</a></p>-->
-<!--            </div>-->
-<!--        --><?php //} ?>
+         <!--блок с авторизацией -->
+        <?php if (isset($_SESSION['authorize'])) {
+            if ($_SESSION['authorize']) { ?>
+                <div class="block-top-auth">
+                    <p><a href="/user/<?=$_SESSION['userId']?>"><?=$_SESSION['email']?></a></p>
+                    <p><a href="/logout.php">Выйти</a></p>
+                </div>
+            <?php } else { ?>
+                <div class="block-top-auth">
+                    <p><a href="/login">Вход</a></p>
+                    <p><a href="/register">Регистрация</a></p>
+                </div>
+            <?php } ?>
+        <?php } else { ?>
+            <div class="block-top-auth">
+                <p><a href="/login">Вход</a></p>
+                <p><a href="/register">Регистрация</a></p>
+            </div>
+        <?php } ?>
 
     </header>
 

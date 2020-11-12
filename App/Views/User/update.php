@@ -1,25 +1,3 @@
-<?php include_once $_SERVER['DOCUMENT_ROOT']."/header.php" ?>
-
-<?php include_once $_SERVER['DOCUMENT_ROOT']."/functions/validate_user.php" ?>
-<?php include_once $_SERVER['DOCUMENT_ROOT']."/functions/get_user.php"; ?>
-<?php include_once $_SERVER['DOCUMENT_ROOT']."/functions/edit_user.php"; ?>
-<?php include_once $_SERVER['DOCUMENT_ROOT']."/functions/is_unique_user.php" ?>
-
-<?php
-    $userDataPath = $_SERVER['DOCUMENT_ROOT']."/userdata";
-    $user = get_user($_GET['id']);
-    if(isset($_POST['submit'])) {
-        $inputUserData = array(
-            'id' => $_GET['id'],
-            'name' => clean($_POST['name']),
-            'email' => clean($_POST['email']),
-            'password' => clean($_POST['password']),
-            'phone' => clean($_POST['phone'])
-        );
-        edit_user($userDataPath, $_GET['id'], $inputUserData);
-    }
-?>
-
 <div class="content">
     <form name="add-user" action="" method="post">
         <p>
@@ -47,6 +25,3 @@
         </p>
     </form>
 </div>
-
-<?php include_once $_SERVER['DOCUMENT_ROOT']."/footer.php" ?>
-

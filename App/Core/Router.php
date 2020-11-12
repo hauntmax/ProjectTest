@@ -2,6 +2,7 @@
 
 namespace App\Core;
 
+
 class Router extends Singleton {
     private static array $routes;
     private static array $params;
@@ -22,6 +23,7 @@ class Router extends Singleton {
      */
     public function add($route, $params)
     {
+        $route = preg_replace('/{([a-z]+):([^\}]+)}/', '(?P<\1>\2)', $route);
         $route = '#^'.$route.'$#';
         self::$routes[$route] = $params;
     }
@@ -30,11 +32,19 @@ class Router extends Singleton {
      * Сопоставляет маршруты из URI c маршрутами из статической переменной
      * @return bool
      */
-    public static function match(): bool
+    public function match(): bool
     {
         $url = trim($_SERVER['REQUEST_URI'], '/');
         foreach (self::$routes as $route => $params) {
-            if (preg_match($route, $url)) {
+            if (preg_match($route, $url, $matches)) {
+                foreach ($matches as $key => $match) {
+                    if (is_string($key)) {
+                        if (is_numeric($match)) {
+                            $match = (int)$match;
+                        }
+                        $params[$key] = $match;
+                    }
+                }
                 self::$params = $params;
                 return true;
             }
@@ -46,9 +56,9 @@ class Router extends Singleton {
      * Метод предназначен для создания экземпляра класса контроллера
      * и вызова метода действия на основе маршрута
      */
-    public static function start()
+    public function start()
     {
-        if (self::match())
+        if ($this->match())
         {
             $path_controller = "App\Controllers\\".ucfirst(self::$params['controller'])."Controller";
             if (class_exists($path_controller))
@@ -60,15 +70,15 @@ class Router extends Singleton {
                     $controller->$action();
                 }
                 else {
-                    die("Контроллер ${path_controller} не содержит метод ${action}");
+                    View::errorCode(404);
                 }
             }
             else {
-                die("Контроллер ${path_controller} не найден");
+                View::errorCode(404);
             }
         }
         else {
-            die("Маршрут ${_SERVER['REQUEST_URI']} не может быть обработан");
+            View::errorCode(404);
         }
     }
 

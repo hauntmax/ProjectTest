@@ -11,5 +11,5 @@ spl_autoload_register(function ($class) {
     }
 });
 
-$router = Router::getInstance();
-$router::start();
+session_start();
+Router::getInstance()->start();
