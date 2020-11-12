@@ -56,14 +56,3 @@
 
     </header>
 
-
-<!---->
-<!--    <div class="block-top-auth">-->
-<!--        <p><a href="/login.php">Вход</a></p>-->
-<!--        <p><a href="/register.php">Регистрация</a></p>-->
-<!--    </div>-->
-<!---->
-<!--    <div class="block-top-auth">-->
-<!--        <p><a href="#">--><?//=$_COOKIE['email']?><!--</a></p>-->
-<!--        <p><a href="#">Выйти</a></p>-->
-<!--    </div>-->

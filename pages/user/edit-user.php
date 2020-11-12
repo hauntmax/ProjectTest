@@ -16,9 +16,10 @@
             'password' => clean($_POST['password']),
             'phone' => clean($_POST['phone'])
         );
-        if (is_unique_user($userDataPath, $inputUserData['email'])){
-            edit_user($userDataPath, $_GET['id'], $inputUserData);
-        }
+        edit_user($userDataPath, $_GET['id'], $inputUserData);
+//        if (is_unique_user($userDataPath, $inputUserData['email'])){
+//            edit_user($userDataPath, $_GET['id'], $inputUserData);
+//        }
     }
 ?>
 

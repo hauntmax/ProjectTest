@@ -18,7 +18,6 @@ function login_user(string $path, array $loginData): bool {
     if ($isRegistered) {
         $_SESSION['authorize'] = true;
         $_SESSION['email'] = $loginData['email'];
-        $_SESSION['password'] = password_hash($loginData['password'], PASSWORD_DEFAULT);
     }
 
     return $isRegistered;
