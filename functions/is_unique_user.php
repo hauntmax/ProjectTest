@@ -7,7 +7,6 @@ function is_unique_user(string $path, string $email): bool {
 
     foreach ($users as $user){
         if ($user['email'] == $email){
-            echo "Пользователь с Email: '$email' уже существует.";
             return false;
         }
     }

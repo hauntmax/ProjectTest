@@ -1,4 +1,7 @@
 <div class="content">
+    <?php if (isset($errorLogin)) { ?>
+        <h3><?=$errorLogin?></h3>
+    <?php } ?>
     <form name="add-user" action="" method="post">
         <p>
             <label for="email">Email </label>

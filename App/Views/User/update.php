@@ -1,4 +1,12 @@
 <div class="content">
+    <?php if (isset($errorUnique)) { ?>
+        <p class="alert-danger"><?=$errorUnique?></p>
+    <?php } ?>
+    <?php if (isset($errorsValidate)) { ?>
+        <?php foreach ($errorsValidate as $error) { ?>
+            <p class="alert-danger"><?=$error?></p>
+        <?php } ?>
+    <?php } ?>
     <form name="add-user" action="" method="post">
         <p>
             <label for="name">Имя </label>

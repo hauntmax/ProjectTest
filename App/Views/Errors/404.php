@@ -1,5 +1,1 @@
-<div class="content">
-    <div class="block">
-        <h1>404</h1>
-    </div>
-</div>
+<h1>404 Ресурс не найден</h1>

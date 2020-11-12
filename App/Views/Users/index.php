@@ -1,7 +1,6 @@
 <?php if (isset($_SESSION['authorize'])) {?>
     <?php if ($_SESSION['authorize']) {?>
         <div class="content">
-            <p><?=$title?></p>
             <?php
             var_dump($users);
             foreach ($users as $id => $user) { ?>
@@ -17,4 +16,13 @@
             <a class="btn btn-primary" href="/user/create/new">Добавить</a>
         </div>
     <?php }?>
-<?php }?>
+<?php } else {
+        header('HTTP/1.1 401 Unauthorized');
+        header("Status: 401 Unauthorized");
+    ?>
+    <div class="content">
+        <div class="block">
+            <h3>Для просмотра страницы нужно авторизоваться</h3>
+        </div>
+    </div>
+<?php } ?>

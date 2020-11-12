@@ -25,30 +25,24 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4dcfb0b-aa29-42a5-ad15-244af93fe6d2" name="Default Changelist" comment="Architect changes (mvc). Add core app">
-      <change afterPath="$PROJECT_DIR$/App/Controllers/LoginController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Controllers/RegisterController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Controllers/UserController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Views/Errors/401.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Views/Errors/404.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Views/Login/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Views/Register/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Views/User/create.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Views/User/delete.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Views/User/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Views/User/update.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/functions/string_challenge.php" afterDir="false" />
+    <list default="true" id="a4dcfb0b-aa29-42a5-ad15-244af93fe6d2" name="Default Changelist" comment="change routes, add old function in controllers">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Config/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Config/routes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Controllers/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/UsersController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Core/Router.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Core/Router.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Controllers/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Controllers/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/RegisterController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/Core/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Core/View.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Views/Layouts/default.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Layouts/default.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Views/Errors/401.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Errors/401.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Views/Errors/404.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Errors/404.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Views/Login/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Login/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Views/Main/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Main/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Views/Register/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Register/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Views/User/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/User/create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Views/User/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/User/update.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/Views/Users/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Users/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/delete_user.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions/delete_user.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/is_unique_user.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions/is_unique_user.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/login_user.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions/login_user.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions/save_user.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions/save_user.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/user/edit-user.php" beforeDir="false" afterPath="$PROJECT_DIR$/pages/user/edit-user.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/validate_user.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions/validate_user.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +108,8 @@
       <workItem from="1605042487531" duration="7105000" />
       <workItem from="1605078566129" duration="17819000" />
       <workItem from="1605121325681" duration="18767000" />
-      <workItem from="1605164527578" duration="25711000" />
+      <workItem from="1605164527578" duration="25936000" />
+      <workItem from="1605204217755" duration="9586000" />
     </task>
     <task id="LOCAL-00001" summary="update auth (unique email, some fix)">
       <created>1605050499298</created>
@@ -130,7 +125,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605140366408</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="change routes, add old function in controllers">
+      <created>1605193721226</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1605193721226</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -178,7 +180,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update auth (unique email, some fix)" />
     <MESSAGE value="Architect changes (mvc). Add core app" />
-    <option name="LAST_COMMIT_MESSAGE" value="Architect changes (mvc). Add core app" />
+    <MESSAGE value="change routes, add old function in controllers" />
+    <option name="LAST_COMMIT_MESSAGE" value="change routes, add old function in controllers" />
   </component>
   <component name="WindowStateProjectService">
     <state x="726" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1604745257242">
@@ -208,10 +211,10 @@
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state x="2389" y="192" width="1022" height="737" key="SettingsEditor/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1604858535633" />
-    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1605140373635">
+    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1605193725263">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
-    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605140373635" />
+    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605193725263" />
     <state x="2066" y="354" width="1275" height="775" key="dock-window-1" timestamp="1605138577289">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>

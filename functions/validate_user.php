@@ -13,56 +13,50 @@ function check_length(string $value, int $min, int $max): bool {
     return !$result;
 }
 
-function isEmptyUserData(array $userdata): bool {
-    $result = false;
+function checkEmptyUserData(array $userdata): array
+{
+    $errors = array();
     if (empty(clean($userdata['name']))){
-        echo "Имя обязательно для заполнения<br>";
-        $result = true;
+        $errors[] = "Имя обязательно для заполнения<br>";
     }
 
     if (empty(clean($userdata['email']))){
-        echo "Email обязателен для заполнения<br>";
-        $result = true;
+        $errors[] = "Email обязателен для заполнения<br>";
     }
 
     if (empty(clean($userdata['phone']))){
-        echo "Номер телефона обязателен для заполнения<br>";
-        $result = true;
+        $errors[] = "Номер телефона обязателен для заполнения<br>";
     }
 
     if (empty(clean($userdata['password']))) {
-        echo "Нужно заполнить пароль<br>";
-        $result = true;
+        $errors[] = "Нужно заполнить пароль<br>";
     }
-    return $result;
+    return $errors;
 }
 
-function validate_user(array $userdata): bool {
-    $result = true;
+function checkValidateUser(array $userdata): array
+{
+    $errors = array();
 
-    if (isEmptyUserData($userdata)){
-        return false;
+    if (!empty(checkEmptyUserData($userdata))){
+        return checkEmptyUserData($userdata);
     }
 
     if (!preg_match("/^[a-zA-Zа-яёА-ЯЁ ]+$/ui", $userdata['name'])){
-        echo "Имя должно содержать только буквы и пробелы<br>";
-        $result = false;
+        $errors[] = "Имя должно содержать только буквы и пробелы<br>";
     }
 
     if (!filter_var($userdata['email'], FILTER_VALIDATE_EMAIL)){
-        echo "Неверный формат email<br>";
-        $result = false;
+        $errors[] = "Неверный формат email<br>";
     }
 
     if (!preg_match("/^[0-9]{10,12}+$/", $userdata['phone'])){
-        echo "Телефон задан в неверном формате<br>";
-        $result = false;
+        $errors[] = "Телефон задан в неверном формате<br>";
     }
 
     if (!check_length($userdata['password'], 4, PHP_INT_MAX)) {
-        echo "Пароль должен содержать от 4 символов<br>";
-        $result = false;
+        $errors[] = "Пароль должен содержать от 4 символов<br>";
     }
 
-    return $result;
+    return $errors;
 }

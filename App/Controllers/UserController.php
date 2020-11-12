@@ -21,10 +21,9 @@ class UserController extends Controller
 
     public function IndexAction()
     {
-        $data = [
+        $this->view->render("Пользователь", [
             'user' => get_user($this->route['id'])
-        ];
-        $this->view->render("Пользователь", $data);
+        ]);
     }
 
     public function CreateAction()
@@ -39,40 +38,59 @@ class UserController extends Controller
                 'phone' => clean($_POST['phone'])
             );
             if (is_unique_user($userDataPath, $inputUserData['email'])) {
-                save_user($userDataPath, $inputUserData);
+                if (!empty(checkValidateUser($inputUserData)))
+                {
+                    $this->view->render("Добавление пользователя", [
+                        'errorsValidate' => checkValidateUser($inputUserData)
+                    ]);
+                }
+                else {
+                    save_user($userDataPath, $inputUserData);
+                }
+            }
+            else {
+                $this->view->render("Добавление пользователя", [
+                    'errorUnique' => "Пользователь с Email: ".$inputUserData['email']." уже существует."
+                ]);
             }
         }
-        $this->view->render("Создать пользователя");
+        $this->view->render("Добавление пользователя");
     }
 
     public function UpdateAction()
     {
-        $data = [
-            'user' => get_user($this->route['id'])
-        ];
         if(isset($_POST['submit'])) {
             $userDataPath = $_SERVER['DOCUMENT_ROOT']."/userdata";
             $inputUserData = array(
-                'id' => $data['user']['id'],
+                'id' => $this->route['id'],
                 'name' => clean($_POST['name']),
                 'email' => clean($_POST['email']),
                 'password' => clean($_POST['password']),
                 'phone' => clean($_POST['phone'])
             );
-            edit_user($userDataPath, $data['user']['id'], $inputUserData);
+            if (!empty(checkValidateUser($inputUserData)))
+            {
+                $this->view->render("Редактировать пользователя", [
+                    'errorsValidate' => checkValidateUser($inputUserData)
+                ]);
+            }
+            else {
+                edit_user($userDataPath, $this->route['id'], $inputUserData);
+            }
         }
-        $this->view->render("Редактировать пользователя", $data);
+        $this->view->render("Редактировать пользователя", [
+            'user' => get_user($this->route['id'])
+        ]);
     }
 
     public function DeleteAction()
     {
-        $data = [
-            'user' => get_user($this->route['id'])
-        ];
         if(isset($_POST['submit'])) {
-            delete_user($data['user']['id']);
+            delete_user($this->route['id']);
             $this->view->redirect("/users");
         }
-        $this->view->render("Удалить пользователя", $data);
+        $this->view->render("Удалить пользователя", [
+            'user' => get_user($this->route['id'])
+        ]);
     }
 }

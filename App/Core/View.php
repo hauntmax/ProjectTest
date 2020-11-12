@@ -46,9 +46,9 @@ class View
     }
 
     /**
-     * @param $code
+     * @param int $code
      */
-    public static function errorCode($code)
+    public static function errorCode(int $code)
     {
         http_response_code($code);
         $path = 'App/Views/Errors/'.$code.'.php';
@@ -56,5 +56,13 @@ class View
             require $path;
         }
         exit;
+    }
+
+    /**
+     * @param int $status
+     * @param string $message
+     */
+    public function message(int $status, string $message) {
+        exit(json_encode(['status' => $status, 'message' => $message]));
     }
 }
