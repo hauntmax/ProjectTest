@@ -25,24 +25,23 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4dcfb0b-aa29-42a5-ad15-244af93fe6d2" name="Default Changelist" comment="change routes, add old function in controllers">
+    <list default="true" id="a4dcfb0b-aa29-42a5-ad15-244af93fe6d2" name="Default Changelist" comment="change validate and page errors">
+      <change afterPath="$PROJECT_DIR$/functions/upload_profile_image.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Controllers/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Config/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Config/routes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Controllers/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/MainController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/Controllers/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/RegisterController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Core/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Core/View.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Views/Errors/401.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Errors/401.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Views/Errors/404.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Errors/404.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Controllers/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/UsersController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Core/Router.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Core/Router.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/Views/Login/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Login/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Views/Main/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Main/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/Views/Register/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Register/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Views/User/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/User/create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Views/User/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/User/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/Views/User/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/User/update.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/Views/Users/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Users/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/is_unique_user.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions/is_unique_user.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/login_user.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions/login_user.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/save_user.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions/save_user.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/validate_user.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions/validate_user.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/delete_user.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions/delete_user.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/string_challenge.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions/string_challenge.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +65,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/App/Public" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -109,7 +109,10 @@
       <workItem from="1605078566129" duration="17819000" />
       <workItem from="1605121325681" duration="18767000" />
       <workItem from="1605164527578" duration="25936000" />
-      <workItem from="1605204217755" duration="9586000" />
+      <workItem from="1605204217755" duration="9781000" />
+      <workItem from="1605251615994" duration="22586000" />
+      <workItem from="1605447690679" duration="10923000" />
+      <workItem from="1605510551887" duration="24198000" />
     </task>
     <task id="LOCAL-00001" summary="update auth (unique email, some fix)">
       <created>1605050499298</created>
@@ -132,7 +135,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605193721226</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="change validate and page errors">
+      <created>1605214423909</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1605214423909</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -181,7 +191,8 @@
     <MESSAGE value="update auth (unique email, some fix)" />
     <MESSAGE value="Architect changes (mvc). Add core app" />
     <MESSAGE value="change routes, add old function in controllers" />
-    <option name="LAST_COMMIT_MESSAGE" value="change routes, add old function in controllers" />
+    <MESSAGE value="change validate and page errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="change validate and page errors" />
   </component>
   <component name="WindowStateProjectService">
     <state x="726" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1604745257242">
@@ -200,21 +211,21 @@
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state x="2310" y="312" width="505" height="568" key="NewPhpClassDialog/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605191566674" />
-    <state x="2549" y="538" width="629" height="156" key="NewPhpFileDialog" timestamp="1605191487514">
+    <state x="2549" y="538" width="629" height="156" key="NewPhpFileDialog" timestamp="1605525530699">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state x="1740" y="552" width="629" height="156" key="NewPhpFileDialog/0.27.3520.1053@0.27.3520.1053" timestamp="1604933743985" />
-    <state x="2549" y="538" width="343" height="156" key="NewPhpFileDialog/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605191487514" />
+    <state x="2549" y="538" width="343" height="156" key="NewPhpFileDialog/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605525530699" />
     <state x="825" y="462" width="331" height="149" key="NewPhpFileDialog/67.27.1533.873@67.27.1533.873" timestamp="1604651733807" />
     <state x="983" y="552" width="399" height="149" key="NewPhpFileDialog/67.27.1853.1053/1920.0.1600.900@67.27.1853.1053" timestamp="1604748428749" />
     <state x="2389" y="192" width="1022" height="737" key="SettingsEditor" timestamp="1604858535633">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state x="2389" y="192" width="1022" height="737" key="SettingsEditor/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1604858535633" />
-    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1605193725263">
+    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1605214440259">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
-    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605193725263" />
+    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605214440259" />
     <state x="2066" y="354" width="1275" height="775" key="dock-window-1" timestamp="1605138577289">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>

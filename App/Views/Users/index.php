@@ -8,8 +8,8 @@
                     <h1>Имя: <a href="/user/<?=$id?>"><?=$user['name']?></a></h1>
                     <p>Email: <?=$user['email']?></p>
                     <p>Номер телефона: <?=$user['phone']?></p>
-                    <a class="btn btn-warning" href="/user/update/<?=$id?>">Редактировать</a>
-                    <a class="btn btn-danger" href='/user/delete/<?=$id?>'>Удалить</a>
+                    <a class="btn btn-warning" href="/user/<?=$id?>/update">Редактировать</a>
+                    <a class="btn btn-danger" href="/user/<?=$id?>/delete">Удалить</a>
                     <hr>
                 </div>
             <?php } ?>

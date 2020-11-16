@@ -29,11 +29,11 @@ return array (
         'controller' => 'user',
         'action' => 'create'
     ],
-    'user/update/{id:\w+}' => [
+    'user/{id:\w+}/update' => [
         'controller' => 'user',
         'action' => 'update'
     ],
-    'user/delete/{id:\w+}' => [
+    'user/{id:\w+}/delete' => [
         'controller' => 'user',
         'action' => 'delete'
     ],
