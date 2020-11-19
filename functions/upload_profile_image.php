@@ -10,10 +10,10 @@
 function upload_profile_image(string $tmpFileName, string $imageDir): string
 {
     $errorCode = $_FILES['profile-image']['error'];
-    // Проверим на ошибки
+    // Проверка на ошибки при загрузке файла
     if ($errorCode !== UPLOAD_ERR_OK || !is_uploaded_file($tmpFileName)) {
         // || !is_uploaded_file($tmpFileName) - для проверки на то, что файл загружен
-        // Массив с названиями ошибок
+        // Массив с ошибками при загрузке файла
         $errorMessages = [
             UPLOAD_ERR_INI_SIZE   => 'Размер файла превысил значение upload_max_filesize в конфигурации PHP.',
             UPLOAD_ERR_FORM_SIZE  => 'Размер загружаемого файла превысил значение MAX_FILE_SIZE в HTML-форме.',
@@ -26,13 +26,14 @@ function upload_profile_image(string $tmpFileName, string $imageDir): string
         // Зададим неизвестную ошибку
         $unknownMessage = 'При загрузке файла произошла неизвестная ошибка.';
         // Если в массиве нет кода ошибки, то ошибка неизвестна
-        $outputMessage = isset($errorMessages[$errorCode]) ? $errorMessages[$errorCode]: $unknownMessage;
+        $outputMessage = isset($errorMessages[$errorCode]) ? $errorMessages[$errorCode] : $unknownMessage;
         // Выведем название ошибки
         die($outputMessage);
     } else {
-        echo 'Ошибок нет.';
+        echo 'Файл загружен.' . "<br>";
     }
 
+    // Проверить MIME тип загружаемого файла
     $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
     $mime = (string) finfo_file($fileInfo, $tmpFileName);
     if (strpos($mime, 'image') === false){

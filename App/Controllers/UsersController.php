@@ -4,21 +4,20 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
-use App\Core\View;
+use App\Models\User;
 
-include_once $_SERVER['DOCUMENT_ROOT'] . "/functions/get_users.php";
 
 class UsersController extends Controller
 {
+    public function __construct(array $route)
+    {
+        parent::__construct($route);
+        $this->model = new User();
+    }
+
     public function IndexAction() {
-        if (isset($_SESSION['authorize']))
-        {
-            if (!$_SESSION['authorize']){
-                View::errorCode(401);
-            }
-        }
         $this->view->render("Пользователи", [
-            'users' => get_users($_SERVER['DOCUMENT_ROOT']."/userdata")
+            'users' => $this->model->getAll()
         ]);
     }
 }

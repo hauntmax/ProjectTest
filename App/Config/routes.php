@@ -15,6 +15,10 @@ return array (
         'controller' => 'register',
         'action' => 'index'
     ],
+    'register/activation/{token:\w+}' => [
+        'controller' => 'register',
+        'action' => 'activation'
+    ],
 
     // Users
     'users' => [

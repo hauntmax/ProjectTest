@@ -81,5 +81,4 @@ class Router extends Singleton {
             View::errorCode(404);
         }
     }
-
 }

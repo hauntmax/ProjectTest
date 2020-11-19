@@ -72,4 +72,12 @@ fabric.properties
 
 /userdata
 
+/userdata_confirm
+
 /upload
+
+/vendor
+
+composer.json
+
+composer.lock

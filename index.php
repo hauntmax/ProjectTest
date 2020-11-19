@@ -1,6 +1,7 @@
 <?php
 
 require 'App/Lib/Dev.php';
+require 'vendor/autoload.php';
 
 use App\Core\Router;
 
