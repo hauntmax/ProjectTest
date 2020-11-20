@@ -25,41 +25,38 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4dcfb0b-aa29-42a5-ad15-244af93fe6d2" name="Default Changelist" comment="release image addition and edition on user profile">
-      <change afterPath="$PROJECT_DIR$/App/Core/Model.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Models/User.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Models/Validators/UserValidator.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Models/Validators/Validator.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Views/Register/activation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="a4dcfb0b-aa29-42a5-ad15-244af93fe6d2" name="Default Changelist" comment="Add Model class, now need call it's methods to work with data. Add SendToken method to RegisterController. Add composer require PHPMailer.">
+      <change beforePath="$PROJECT_DIR$/.idea/ProjectTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ProjectTest.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/Config/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Config/routes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Controllers/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/LoginController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/Controllers/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/RegisterController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Controllers/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/UsersController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Core/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Core/Controller.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Core/Router.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Core/Router.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Views/Errors/404.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Errors/404.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Views/Register/activation.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Register/activation.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/Views/Register/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Register/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/Views/User/create.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/User/create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Views/User/delete.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/User/delete.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/Views/User/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/User/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Views/User/update.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/User/update.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/delete_user.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions/delete_user.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/edit_user.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions/edit_user.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/string_challenge.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions/string_challenge.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/upload_profile_image.php" beforeDir="false" afterPath="$PROJECT_DIR$/functions/upload_profile_image.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Views/Users/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Users/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" doNotAsk="true">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/phpmailer/phpmailer" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+    </include_path>
   </component>
   <component name="ProjectId" id="1jsg5ONHpGECGfAwI0boWRXBOkG" />
   <component name="ProjectViewState">
@@ -128,7 +125,10 @@
       <workItem from="1605684012463" duration="10667000" />
       <workItem from="1605714200094" duration="1774000" />
       <workItem from="1605722250163" duration="16836000" />
-      <workItem from="1605769201742" duration="17072000" />
+      <workItem from="1605769201742" duration="21511000" />
+      <workItem from="1605805427339" duration="14255000" />
+      <workItem from="1605825116361" duration="2875000" />
+      <workItem from="1605856340665" duration="2314000" />
     </task>
     <task id="LOCAL-00001" summary="update auth (unique email, some fix)">
       <created>1605050499298</created>
@@ -165,7 +165,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605538353532</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add Model class, now need call it's methods to work with data. Add SendToken method to RegisterController. Add composer require PHPMailer.">
+      <created>1605793067290</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1605793067290</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,7 +223,8 @@
     <MESSAGE value="change routes, add old function in controllers" />
     <MESSAGE value="change validate and page errors" />
     <MESSAGE value="release image addition and edition on user profile" />
-    <option name="LAST_COMMIT_MESSAGE" value="release image addition and edition on user profile" />
+    <MESSAGE value="Add Model class, now need call it's methods to work with data. Add SendToken method to RegisterController. Add composer require PHPMailer." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Model class, now need call it's methods to work with data. Add SendToken method to RegisterController. Add composer require PHPMailer." />
   </component>
   <component name="WindowStateProjectService">
     <state x="2010" y="269" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605779703200">
@@ -232,18 +240,18 @@
     </state>
     <state x="2283" y="281" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605791124051" />
     <state x="726" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/67.27.1853.1053/1920.0.1600.900@67.27.1853.1053" timestamp="1604745257242" />
-    <state x="2307" y="354" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605169374248">
+    <state x="2307" y="354" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605825816194">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
-    <state x="2307" y="354" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605169374248" />
+    <state x="2307" y="354" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605825816194" />
     <state x="2393" y="333" width="424" height="491" key="FileChooserDialogImpl" timestamp="1605029272241">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state x="2393" y="333" width="424" height="491" key="FileChooserDialogImpl/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605029272241" />
-    <state x="2310" y="312" width="553" height="568" key="NewPhpClassDialog" timestamp="1605734792799">
+    <state x="2310" y="312" width="553" height="568" key="NewPhpClassDialog" timestamp="1605807124783">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
-    <state x="2310" y="312" width="553" height="568" key="NewPhpClassDialog/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605734792799" />
+    <state x="2310" y="312" width="553" height="568" key="NewPhpClassDialog/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605807124783" />
     <state x="2549" y="538" width="629" height="156" key="NewPhpFileDialog" timestamp="1605779658770">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
@@ -255,17 +263,17 @@
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state x="2389" y="192" width="1022" height="737" key="SettingsEditor/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1604858535633" />
-    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1605538364728">
+    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1605793106726">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
-    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605538364728" />
+    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605793106726" />
     <state x="2066" y="354" width="1275" height="775" key="dock-window-1" timestamp="1605138577289">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state x="2066" y="354" width="1275" height="775" key="dock-window-1/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605138577289" />
-    <state x="2182" y="390" width="670" height="58" key="search.everywhere.popup" timestamp="1605709132497">
+    <state x="2182" y="390" width="672" height="160" key="search.everywhere.popup" timestamp="1605825875773">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
-    <state x="2182" y="390" width="670" height="58" key="search.everywhere.popup/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605709132497" />
+    <state x="2182" y="390" width="672" height="160" key="search.everywhere.popup/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605825875773" />
   </component>
 </project>

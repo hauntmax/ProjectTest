@@ -1,3 +1,7 @@
 <div class="content">
-    <h1>Аккаунт активирован</h1>
+    <?php if (isset($successActivation)) { ?>
+        <h1><?=$successActivation?></h1>
+    <?php } else { ?>
+        <h1><?=$errorActivation?></h1>
+    <?php } ?>
 </div>

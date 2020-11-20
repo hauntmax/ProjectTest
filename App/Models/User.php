@@ -7,12 +7,12 @@ use App\Core\Model;
 
 class User extends Model
 {
-    private string $dataPath;
+    public string $dataPath;
 
     public function __construct()
     {
         parent::__construct();
-        $this->dataPath = $_SERVER['DOCUMENT_ROOT']."/userdata";
+        $this->dataPath = $_SERVER['DOCUMENT_ROOT'] . "/userdata";
     }
 
     /**
@@ -21,7 +21,7 @@ class User extends Model
     public function getAll(): array
     {
         $users = array();
-        foreach (glob($this->dataPath."/*.json") as $jsonFilePath){
+        foreach (glob($this->dataPath . "/*.json") as $jsonFilePath) {
             $user = json_decode(file_get_contents($jsonFilePath), true);
             $users[$user['id']] = $user;
         }
@@ -35,7 +35,7 @@ class User extends Model
     public function getById(string $id)
     {
         $users = $this->getAll();
-        if (isset($users[$id])){
+        if (isset($users[$id])) {
             return $users[$id];
         }
         return false;
@@ -45,12 +45,12 @@ class User extends Model
      * @param array $userData
      * @return int
      */
-    public function create(array $userData): int
+    public function create(array $userData)
     {
         $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
-        if (file_put_contents($this->dataPath.'/'.$userData['id'].".json",
-            json_encode($userData))){
-            return (int)$userData['id'];
+        if (file_put_contents($this->dataPath . '/' . $userData['id'] . ".json",
+            json_encode($userData))) {
+            return $userData['id'];
         }
         return false;
     }
@@ -59,27 +59,27 @@ class User extends Model
      * @param array $userData
      * @return int
      */
-    public function update(array $userData): int
+    public function update(array $userData)
     {
         $this->delete($userData['id']);
-        if (file_put_contents($this->dataPath.'/'.$userData['id'].".json", json_encode($userData))){
+        if (file_put_contents($this->dataPath . '/' . $userData['id'] . ".json", json_encode($userData))) {
             return $userData['id'];
         }
         return false;
     }
 
     /**
-     * @param int $id
+     * @param string $id
      * @return bool
      */
     public function delete(string $id): bool
     {
         $user = $this->getById($id);
-        if (unlink($_SERVER['DOCUMENT_ROOT'] . "/userdata/" . $user['id'] . ".json")){
-            if (isset($user['profile-image']) && $user['profile-image'] !== "/upload/noimage.jpg"){
+        if (unlink($_SERVER['DOCUMENT_ROOT'] . "/userdata/" . $user['id'] . ".json")) {
+            if (isset($user['profile-image']) && $user['profile-image'] !== "/upload/noimage.jpg") {
                 unlink($_SERVER['DOCUMENT_ROOT'] . $user['profile-image']);
             }
-            if ($user['id'] == $_SESSION['userId']){
+            if (isset($_SESSION['userId']) && $user['id'] == $_SESSION['userId']) {
                 session_start();
                 session_destroy();
                 header('Location:/');
@@ -96,8 +96,8 @@ class User extends Model
     public function isUniqueUser(string $email): bool
     {
         $users = $this->getAll();
-        foreach ($users as $user){
-            if ($user['email'] == $email){
+        foreach ($users as $user) {
+            if ($user['email'] == $email) {
                 return false;
             }
         }

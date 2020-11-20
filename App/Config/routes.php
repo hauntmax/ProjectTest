@@ -1,6 +1,6 @@
 <?php
 
-return array (
+return array(
     '' => [
         'controller' => 'main',
         'action' => 'index'
@@ -15,7 +15,7 @@ return array (
         'controller' => 'register',
         'action' => 'index'
     ],
-    'register/activation/{token:\w+}' => [
+    'register/activation/{token:\w+}/{id:\w+}' => [
         'controller' => 'register',
         'action' => 'activation'
     ],

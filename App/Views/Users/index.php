@@ -5,6 +5,11 @@
             var_dump($users);
             foreach ($users as $id => $user) { ?>
                 <div class="block">
+                    <?php if (isset($user['status-account']) && $user['status-account']) { ?>
+                        <h2 class="alert-success">Аккаунт активирован</h2>
+                    <?php } else { ?>
+                        <h2 class="alert-danger">Аккаунт не активирован</h2>
+                    <?php } ?>
                     <h1>Имя: <a href="/user/<?=$id?>"><?=$user['name']?></a></h1>
                     <p>Email: <?=$user['email']?></p>
                     <p>Номер телефона: <?=$user['phone']?></p>

@@ -21,13 +21,12 @@ class RegisterController extends Controller
 
     public function IndexAction()
     {
-        if (isset($_POST['submit']))
-        {
+        if (isset($_POST['submit'])) {
             $inputUserData = array(
                 'id' => uniqid(),
                 'name' => $this->validator->clean($_POST['name']),
                 'email' => $this->validator->clean($_POST['email']),
-                //'status-email' => isConfirmedEmail(),
+                'status-account' => false,
                 'password' => $this->validator->clean($_POST['password']),
                 'phone' => $this->validator->clean($_POST['phone']),
                 'profile-image' => !empty($_FILES['profile-image']['name']) ?
@@ -40,9 +39,10 @@ class RegisterController extends Controller
                         'errorsValidate' => $this->validator->Validate($inputUserData)
                     ]);
                 } else {
-//                    $this->model->create($inputUserData);
-//                    $this->view->redirect("/users");
-                    $this->SendToken($inputUserData['email']);
+                    $inputUserData['token'] = md5($inputUserData['email'] . time());
+                    $this->model->create($inputUserData);
+//                    $this->view->redirect("/register");
+                    $this->SendToken($inputUserData['email'], $inputUserData['id'], $inputUserData['token']);
                 }
             } else {
                 $this->view->render("Регистрация", [
@@ -54,15 +54,34 @@ class RegisterController extends Controller
         }
     }
 
+    /**
+     *
+     */
     public function ActivationAction()
     {
-        $token = $this->route['token'];
         unset($_SESSION['successMessageRegister']);
-
-        $this->view->render('Активация аккаунта');
+        $token = $this->route['token'];
+        $user = $this->model->getById($this->route['id']);
+        if ($user && $token === $user['token']) {
+            $user['status-account'] = true;
+            unset($user['token']);
+            $this->model->update($user);
+            $this->view->render('Активация аккаунта', [
+                'successActivation' => "Аккаунт " . $user['email'] . " активирован"
+            ]);
+        } else {
+            $this->view->render('Активация аккаунта', [
+                'errorActivation' => "Неверный токен активации или пользователь " . $user['email'] . " не найден"
+            ]);
+        }
     }
 
-    private function SendToken($email)
+    /**
+     * @param $email
+     * @param $id
+     * @param $token
+     */
+    private function SendToken($email, $id, $token)
     {
         //Create a new PHPMailer instance
         $mail = new PHPMailer();
@@ -98,35 +117,25 @@ class RegisterController extends Controller
         //Set who the message is to be sent to
         $mail->addAddress($email, 'SendToken');
         //Set the subject line
-        $mail->Subject = "Подтверждение почты на сайте ".$_SERVER['HTTP_HOST'];
+        $mail->Subject = "Подтверждение почты на сайте " . $_SERVER['HTTP_HOST'];
         //Read an HTML message body from an external file, convert referenced images to embedded,
         //convert HTML into a basic plain-text alternative body
-
-        $token = md5($email . time());
         $message = 'Нужно подтвердить регистрацию на сайте
-                <a href="'.$_SERVER['HTTP_HOST'].'">'.$_SERVER['HTTP_HOST'].'</a>
+                <a href="' . $_SERVER['HTTP_HOST'] . '">' . $_SERVER['HTTP_HOST'] . '</a>
                 Пожалуйста, подтвердите адрес вашей электронной почты, перейдя по этой ссылке:
-                <a href="'.$_SERVER['HTTP_HOST'].'/register/activation/'.$token.'">
-                    '.$_SERVER['HTTP_HOST'].'/register/activation/'.$token.'
-                </a>
-                <br/> <br/>
-                В противном случае, если это были не Вы, то, просто игнорируйте это письмо.
-                <br/> <br/>
-                <strong>Внимание!</strong> Ссылка действительна 24 часа. После чего Ваш аккаунт будет удален из базы.
-                ';
+                <a href="' . $_SERVER['HTTP_HOST'] . '/register/activation/' . $token . '/' . $id . '">
+                    ' . $_SERVER['HTTP_HOST'] . '/register/activation/' . $token . '/' . $id . '
+                </a>';
         $mail->msgHTML($message, dirname(__FILE__));
         //Replace the plain text body with one created manually
         $mail->AltBody = 'This is a plain-text message body';
         //send the message, check for errors
 
         if (!$mail->send()) {
-            die("При отправке подтверждения на Email что-то пошло не так<br>".$mail->ErrorInfo);
+            die("При отправке подтверждения на Email что-то пошло не так<br>" . $mail->ErrorInfo);
         } else {
             $_SESSION['successMessageRegister'] = "<strong>Регистрация прошла успешно!!!</strong>
                 Нужно перейти по ссылке, отправленной на $email";
-
-            $this->view->redirect("/register");
-            //Отправляем пользователя на страницу регистрации и убираем форму регистрации
             exit();
         }
     }

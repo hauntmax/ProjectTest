@@ -4,29 +4,55 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Models\User;
+use App\Models\Validators\UserValidator;
 
-include_once $_SERVER['DOCUMENT_ROOT'] . "/functions/login_user.php";
-include_once $_SERVER['DOCUMENT_ROOT'] . "/functions/validate_user.php";
 
 class LoginController extends Controller
 {
+    public function __construct(array $route)
+    {
+        parent::__construct($route);
+        $this->model = new User();
+        $this->validator = new UserValidator();
+    }
+
     public function IndexAction()
     {
-        if(isset($_POST['submit'])) {
+        if (isset($_POST['submit'])) {
             $loginData = array(
-                'email' => clean($_POST['email']),
-                'password' => clean($_POST['password'])
+                'email' => $this->validator->clean($_POST['email']),
+                'password' => $this->validator->clean($_POST['password'])
             );
 
-            if (login_user($_SERVER['DOCUMENT_ROOT']."/userdata", $loginData)){
+            if ($this->LoginUser($loginData)) {
                 $this->view->redirect("/users");
             } else {
                 $this->view->render("Вход", [
-                    'errorLogin' => "Введены неверные логин или пароль"
+                    'errorLogin' => "Введены неверные данные или аккаунт не активирован"
                 ]);
             }
         }
 
         $this->view->render("Вход");
+    }
+
+    public function LoginUser(array $loginData)
+    {
+        $users = $this->model->getAll();
+        foreach ($users as $user) {
+            if (($user['email'] == $loginData['email']) &&
+                (password_verify($loginData['password'], $user['password']))) {
+                if ($user['status-account'] === false) {
+                    return false;
+                } else {
+                    $_SESSION['userId'] = $user['id'];
+                    $_SESSION['email'] = $loginData['email'];
+                    $_SESSION['authorize'] = true;
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

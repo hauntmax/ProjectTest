@@ -75,6 +75,7 @@ class UserController extends Controller
                     'id' => $this->route['id'],
                     'name' => $this->validator->clean($_POST['name']),
                     'email' => $this->validator->clean($_POST['email']),
+                    'status-account' => $user['status-account'],
                     'password' => !empty($_POST['password']) ?
                         password_hash($this->validator->clean($_POST['password']), PASSWORD_DEFAULT) :
                         $user['password'],
@@ -90,6 +91,7 @@ class UserController extends Controller
                     ]);
                 } else {
                     $this->model->update($inputUserData);
+                    $this->view->redirect("/user/" . $this->route['id']);
                 }
             } else {
                 $this->view->render("Редактировать пользователя", [
@@ -105,12 +107,20 @@ class UserController extends Controller
 
     public function DeleteAction()
     {
-        if (isset($_POST['submit'])) {
-            $this->model->delete($this->route['id']);
-            $this->view->redirect("/users");
+        $user = $this->model->getById($this->route['id']);
+        if ($user) {
+            if (isset($_POST['submit'])) {
+                $this->model->delete($this->route['id']);
+                $this->view->redirect("/users");
+            } else {
+                $this->view->render("Удалить пользователя", [
+                    'user' => $this->model->getById($this->route['id'])
+                ]);
+            }
+        } else {
+            $this->view->render("Удалить пользователя", [
+                'errorFind' => "Нет пользователя с ID: " . $this->route['id']
+            ]);
         }
-        $this->view->render("Удалить пользователя", [
-            'user' => $this->model->getById($this->route['id'])
-        ]);
     }
 }
