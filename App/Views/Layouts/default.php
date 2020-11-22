@@ -19,7 +19,7 @@
         <div class="top-menu">
             <ul>
                 <li><a href="/">Главная</a></li>
-                <li><a href="/users">Пользователи</a></li>
+                <li><a href="/user/list">Пользователи</a></li>
                 <li><a href="#">Сущности</a></li>
             </ul>
         </div>
@@ -37,7 +37,7 @@
             if ($_SESSION['authorize']) { ?>
                 <div class="block-top-auth">
                     <p><a href="/user/<?=$_SESSION['userId']?>"><?=$_SESSION['email']?></a></p>
-                    <p><a href="/logout.php">Выйти</a></p>
+                    <p><a href="/login/logout">Выйти</a></p>
                 </div>
             <?php } else { ?>
                 <div class="block-top-auth">

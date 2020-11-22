@@ -75,9 +75,4 @@ class Validator
             return $error !== null;
         });
     }
-
-//    public function getErrors()
-//    {
-//        return $this->errors;
-//    }
 }

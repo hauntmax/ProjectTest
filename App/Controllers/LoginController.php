@@ -4,42 +4,45 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Forms\UserForm;
 use App\Models\User;
 use App\Models\Validators\UserValidator;
 
-
 class LoginController extends Controller
 {
-    public function __construct(array $route)
+    public function __construct()
     {
-        parent::__construct($route);
-        $this->model = new User();
-        $this->validator = new UserValidator();
+        parent::__construct();
+        User::getInstance();
     }
 
     public function IndexAction()
     {
-        if (isset($_POST['submit'])) {
-            $loginData = array(
-                'email' => $this->validator->clean($_POST['email']),
-                'password' => $this->validator->clean($_POST['password'])
-            );
-
-            if ($this->LoginUser($loginData)) {
-                $this->view->redirect("/users");
+        $form = new UserForm();
+        $loginValues = $form->getLoginValues();
+        if ($loginValues) {
+            if ($this->LoginUser($loginValues)) {
+                $this->view->redirect("/user/" . $_SESSION['userId']);
             } else {
                 $this->view->render("Вход", [
                     'errorLogin' => "Введены неверные данные или аккаунт не активирован"
                 ]);
             }
+        } else {
+            $this->view->render("Вход");
         }
+    }
 
-        $this->view->render("Вход");
+    public function LogoutAction()
+    {
+        session_start();
+        session_destroy();
+        header('Location:/');
     }
 
     public function LoginUser(array $loginData)
     {
-        $users = $this->model->getAll();
+        $users = User::getAll();
         foreach ($users as $user) {
             if (($user['email'] == $loginData['email']) &&
                 (password_verify($loginData['password'], $user['password']))) {

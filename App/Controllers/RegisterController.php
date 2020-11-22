@@ -4,50 +4,37 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Forms\UserForm;
 use App\Models\User;
 use App\Models\Validators\UserValidator;
 use PHPMailer\PHPMailer\PHPMailer;
 
-include_once $_SERVER['DOCUMENT_ROOT'] . "/functions/upload_profile_image.php";
 
 class RegisterController extends Controller
 {
-    public function __construct(array $route)
+    public function __construct()
     {
-        parent::__construct($route);
-        $this->model = new User();
-        $this->validator = new UserValidator();
+        parent::__construct();
+        User::getInstance();
     }
 
     public function IndexAction()
     {
-        if (isset($_POST['submit'])) {
-            $inputUserData = array(
-                'id' => uniqid(),
-                'name' => $this->validator->clean($_POST['name']),
-                'email' => $this->validator->clean($_POST['email']),
-                'status-account' => false,
-                'password' => $this->validator->clean($_POST['password']),
-                'phone' => $this->validator->clean($_POST['phone']),
-                'profile-image' => !empty($_FILES['profile-image']['name']) ?
-                    upload_profile_image($_FILES['profile-image']['tmp_name'],
-                        $_SERVER['DOCUMENT_ROOT'] . "/upload/") : "/upload/noimage.jpg"
-            );
-            if ($this->model->isUniqueUser($inputUserData['email'])) {
-                if (!empty($this->validator->Validate($inputUserData))) {
-                    $this->view->render("Регистрация", [
-                        'errorsValidate' => $this->validator->Validate($inputUserData)
-                    ]);
-                } else {
-                    $inputUserData['token'] = md5($inputUserData['email'] . time());
-                    $this->model->create($inputUserData);
-//                    $this->view->redirect("/register");
-                    $this->SendToken($inputUserData['email'], $inputUserData['id'], $inputUserData['token']);
-                }
-            } else {
-                $this->view->render("Регистрация", [
-                    'errorUnique' => "Пользователь с Email: " . $inputUserData['email'] . " уже существует."
+        $form = new UserForm();
+        $createValues = $form->getCreateValues();
+        if (!empty($createValues)) {
+            if (!empty($form->validateCreateErrors())) {
+                $this->view->render("Добавить пользователя", [
+                    'errorsValidate' => $form->validateCreateErrors()
                 ]);
+            } else {
+                $createValues['profile-image'] = !empty($_FILES['profile-image']['name']) ?
+                    User::uploadProfileImage($_FILES['profile-image']['tmp_name'],
+                        $_SERVER['DOCUMENT_ROOT'] . "/upload/") : "/upload/noimage.jpg";
+                $createValues['token'] = md5($createValues['email'] . time());
+                User::create($createValues);
+                $this->SendToken($createValues['email'], $createValues['id'], $createValues['token']);
+                $this->view->redirect("/register");
             }
         } else {
             $this->view->render("Регистрация");
@@ -55,17 +42,19 @@ class RegisterController extends Controller
     }
 
     /**
-     *
+     * Метод действия для активации аккаунта.
+     * Срабатывает после прохождения по ссылке из письма,
+     * отправленного на email
      */
     public function ActivationAction()
     {
         unset($_SESSION['successMessageRegister']);
-        $token = $this->route['token'];
-        $user = $this->model->getById($this->route['id']);
+        $token = $this->routeParams['token'];
+        $user = User::getById($this->routeParams['id']);
         if ($user && $token === $user['token']) {
             $user['status-account'] = true;
             unset($user['token']);
-            $this->model->update($user);
+            User::update($user);
             $this->view->render('Активация аккаунта', [
                 'successActivation' => "Аккаунт " . $user['email'] . " активирован"
             ]);
@@ -76,7 +65,9 @@ class RegisterController extends Controller
         }
     }
 
+
     /**
+     * Метод для отправки токена подтверждения регистрации по Email
      * @param $email
      * @param $id
      * @param $token
@@ -108,7 +99,7 @@ class RegisterController extends Controller
         //Username to use for SMTP authentication - use full email address for gmail
         $mail->Username = "gfiniti.drive@gmail.com";
         //Password to use for SMTP authentication
-        $mail->Password = "ldc82mkpr";
+        $mail->Password = "qGdca52mx48_";
         $mail->CharSet = "utf-8";
         //Set who the message is to be sent from
         $mail->setFrom('vagrant@homestead.com', 'Maksim');
@@ -136,6 +127,7 @@ class RegisterController extends Controller
         } else {
             $_SESSION['successMessageRegister'] = "<strong>Регистрация прошла успешно!!!</strong>
                 Нужно перейти по ссылке, отправленной на $email";
+            echo "<script>window.location.assign('/register')</script>";
             exit();
         }
     }

@@ -8,14 +8,12 @@ use App\Models\Validators\Validator;
 
 abstract class Controller
 {
-    public array $route;
-    public View $view;
-    public Model $model;
-    public Validator $validator;
+    protected array $routeParams;
+    protected View $view;
 
-    public function __construct(array $route)
+    public function __construct()
     {
-        $this->route = $route;
-        $this->view = new View($route);
+        $this->routeParams = Router::getInstance()->getParams();
+        $this->view = new View();
     }
 }

@@ -6,14 +6,13 @@ namespace App\Core;
 
 class View
 {
-    public string $path;
-    public array $route;
-    public string $layout = 'default';
+    private string $path;
+    private string $layout = 'default';
 
-    public function __construct(array $route)
+    public function __construct()
     {
-        $this->route = $route;
-        $this->path = ucfirst($route['controller']).'/'.$route['action'];
+        $params = Router::getInstance()->getParams();
+        $this->path = ucfirst($params['controller']) . '/' . $params['action'];
     }
 
     /**
@@ -23,16 +22,15 @@ class View
     public function render(string $title, array $data = [])
     {
         extract($data);
-        $pathView = 'App/Views/'.$this->path.'.php';
-        $pathLayout = 'App/Views/Layouts/'.$this->layout.'.php';
-        if (file_exists($pathView)){
+        $pathView = 'App/Views/' . $this->path . '.php';
+        $pathLayout = 'App/Views/Layouts/' . $this->layout . '.php';
+        if (file_exists($pathView)) {
             ob_start();
             require $pathView;
             $content = ob_get_clean();
             require $pathLayout;
-        }
-        else {
-            die('Предcтавление '.$this->path.'.php не найдено');
+        } else {
+            die('Предcтавление ' . $this->path . '.php не найдено');
         }
     }
 
@@ -41,7 +39,7 @@ class View
      */
     public function redirect(string $url)
     {
-        header('Location: '.$url);
+        header('Location: ' . $url);
         exit;
     }
 
@@ -51,7 +49,7 @@ class View
     public static function errorCode(int $code)
     {
         http_response_code($code);
-        $path = 'App/Views/Errors/'.$code.'.php';
+        $path = 'App/Views/Errors/' . $code . '.php';
         if (file_exists($path)) {
             require $path;
         }
@@ -62,7 +60,8 @@ class View
      * @param int $status
      * @param string $message
      */
-    public function message(int $status, string $message) {
+    public function message(int $status, string $message)
+    {
         exit(json_encode(['status' => $status, 'message' => $message]));
     }
 }

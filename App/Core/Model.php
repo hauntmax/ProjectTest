@@ -4,17 +4,25 @@
 namespace App\Core;
 
 
-abstract class Model
+class Model extends Singleton
 {
-    public function __construct(){}
+    public static function getById(string $id)
+    {
+    }
 
-    public function getById(string $id){}
+    public static function getAll()
+    {
+    }
 
-    public function getAll(){}
+    public static function create(array $data)
+    {
+    }
 
-    public function create(array $data){}
+    public static function update(array $data)
+    {
+    }
 
-    public function update(array $data){}
-
-    public function delete(string $id){}
+    public static function delete(string $id)
+    {
+    }
 }

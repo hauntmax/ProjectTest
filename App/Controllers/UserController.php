@@ -4,62 +4,54 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
+use App\Forms\UserForm;
 use App\Models\User;
-use App\Models\Validators\UserValidator;
 
-include_once $_SERVER['DOCUMENT_ROOT'] . "/functions/upload_profile_image.php";
 
 class UserController extends Controller
 {
-    public function __construct(array $route)
+    public function __construct()
     {
-        parent::__construct($route);
-        $this->model = new User();
-        $this->validator = new UserValidator();
+        parent::__construct();
+        User::getInstance();
     }
 
     public function IndexAction()
     {
-        $user = $this->model->getById($this->route['id']);
+        $user = User::getById($this->routeParams['id']);
         if ($user) {
             $this->view->render("Пользователь", [
                 'user' => $user
             ]);
         } else {
             $this->view->render("Пользователь", [
-                'errorFind' => "Нет пользователя с ID: " . $this->route['id']
+                'errorFind' => "Нет пользователя с ID: " . $this->routeParams['id']
             ]);
         }
     }
 
+    public function ListAction()
+    {
+        $this->view->render("Пользователи", [
+            'users' => User::getAll()
+        ]);
+    }
+
     public function CreateAction()
     {
-        if (isset($_POST['submit'])) {
-            $inputUserData = array(
-                'id' => uniqid(),
-                'name' => $this->validator->clean($_POST['name']),
-                'email' => $this->validator->clean($_POST['email']),
-                //'status-email' => isConfirmedEmail(),
-                'password' => $this->validator->clean($_POST['password']),
-                'phone' => $this->validator->clean($_POST['phone']),
-                'profile-image' => !empty($_FILES['profile-image']['name']) ?
-                    upload_profile_image($_FILES['profile-image']['tmp_name'],
-                        $_SERVER['DOCUMENT_ROOT'] . "/upload/") : "/upload/noimage.jpg"
-            );
-            if ($this->model->isUniqueUser($inputUserData['email'])) {
-                $errorsValidate = $this->validator->Validate($inputUserData);
-                if (!empty($errorsValidate)) {
-                    $this->view->render("Регистрация", [
-                        'errorsValidate' => $errorsValidate
-                    ]);
-                } else {
-                    $this->model->create($inputUserData);
-                    $this->view->redirect("/users");
-                }
-            } else {
-                $this->view->render("Регистрация", [
-                    'errorUnique' => "Пользователь с Email: " . $inputUserData['email'] . " уже существует."
+        $form = new UserForm();
+        $createValues = $form->getCreateValues();
+        if (!empty($createValues)) {
+            if (!empty($form->validateCreateErrors())) {
+                $this->view->render("Добавить пользователя", [
+                    'errorsValidate' => $form->validateCreateErrors()
                 ]);
+            } else {
+                $createValues['profile-image'] = !empty($_FILES['profile-image']['name']) ?
+                    User::uploadProfileImage($_FILES['profile-image']['tmp_name'],
+                        $_SERVER['DOCUMENT_ROOT'] . "/upload/") : "/upload/noimage.jpg";
+                User::create($createValues);
+                $this->view->redirect("/user/list");
             }
         } else {
             $this->view->render("Регистрация");
@@ -68,30 +60,21 @@ class UserController extends Controller
 
     public function UpdateAction()
     {
-        $user = $this->model->getById($this->route['id']);
+        $form = new UserForm();
+        $user = User::getById($this->routeParams['id']);
+        $updateValues = $form->getUpdateValues($user);
         if ($user) {
-            if (isset($_POST['submit'])) {
-                $inputUserData = array(
-                    'id' => $this->route['id'],
-                    'name' => $this->validator->clean($_POST['name']),
-                    'email' => $this->validator->clean($_POST['email']),
-                    'status-account' => $user['status-account'],
-                    'password' => !empty($_POST['password']) ?
-                        password_hash($this->validator->clean($_POST['password']), PASSWORD_DEFAULT) :
-                        $user['password'],
-                    'phone' => $this->validator->clean($_POST['phone']),
-                    'profile-image' => !empty($_FILES['profile-image']['name']) ?
-                        upload_profile_image($_FILES['profile-image']['tmp_name'],
-                            $_SERVER['DOCUMENT_ROOT'] . "/upload/") : "/upload/noimage.jpg"
-                );
-                $errorsValidate = $this->validator->Validate($inputUserData);
-                if (!empty($errorsValidate)) {
+            if (!empty($updateValues)) {
+                if (!empty($form->validateUpdateErrors($user))) {
                     $this->view->render("Редактировать пользователя", [
-                        'errorsValidate' => $errorsValidate
+                        'errorsValidate' => $form->validateUpdateErrors($user)
                     ]);
                 } else {
-                    $this->model->update($inputUserData);
-                    $this->view->redirect("/user/" . $this->route['id']);
+                    $updateValues['profile-image'] = !empty($_FILES['profile-image']['name']) ?
+                        User::uploadProfileImage($_FILES['profile-image']['tmp_name'],
+                            $_SERVER['DOCUMENT_ROOT'] . "/upload/") : "/upload/noimage.jpg";
+                    User::update($updateValues);
+                    $this->view->redirect("/user/" . $this->routeParams['id']);
                 }
             } else {
                 $this->view->render("Редактировать пользователя", [
@@ -100,26 +83,26 @@ class UserController extends Controller
             }
         } else {
             $this->view->render("Редактировать пользователя", [
-                'errorFind' => "Нет пользователя с ID: " . $this->route['id']
+                'errorFind' => "Нет пользователя с ID: " . $this->routeParams['id']
             ]);
         }
     }
 
     public function DeleteAction()
     {
-        $user = $this->model->getById($this->route['id']);
+        $user = User::getById($this->routeParams['id']);
         if ($user) {
             if (isset($_POST['submit'])) {
-                $this->model->delete($this->route['id']);
-                $this->view->redirect("/users");
+                User::delete($this->routeParams['id']);
+                $this->view->redirect("/user/list");
             } else {
                 $this->view->render("Удалить пользователя", [
-                    'user' => $this->model->getById($this->route['id'])
+                    'user' => User::getById($this->routeParams['id'])
                 ]);
             }
         } else {
             $this->view->render("Удалить пользователя", [
-                'errorFind' => "Нет пользователя с ID: " . $this->route['id']
+                'errorFind' => "Нет пользователя с ID: " . $this->routeParams['id']
             ]);
         }
     }

@@ -11,6 +11,10 @@ return array(
         'controller' => 'login',
         'action' => 'index'
     ],
+    'login/logout' => [
+        'controller' => 'login',
+        'action' => 'logout'
+    ],
     'register' => [
         'controller' => 'register',
         'action' => 'index'
@@ -21,9 +25,9 @@ return array(
     ],
 
     // Users
-    'users' => [
-        'controller' => 'users',
-        'action' => 'index'
+    'user/list' => [
+        'controller' => 'user',
+        'action' => 'list'
     ],
     'user/{id:\w+}' => [
         'controller' => 'user',

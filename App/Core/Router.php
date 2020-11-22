@@ -53,6 +53,15 @@ class Router extends Singleton {
     }
 
     /**
+     * Получить параметры маршрута
+     * @return array
+     */
+    public function getParams()
+    {
+        return self::$params;
+    }
+
+    /**
      * Метод предназначен для создания экземпляра класса контроллера
      * и вызова метода действия на основе маршрута
      */
@@ -66,7 +75,7 @@ class Router extends Singleton {
                 $action = ucfirst(self::$params['action']).'Action';
                 if (method_exists($path_controller, $action))
                 {
-                    $controller = new $path_controller(self::$params);
+                    $controller = new $path_controller();
                     $controller->$action();
                 }
                 else {
