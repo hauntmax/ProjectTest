@@ -25,28 +25,35 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4dcfb0b-aa29-42a5-ad15-244af93fe6d2" name="Default Changelist" comment="token add">
-      <change afterPath="$PROJECT_DIR$/App/FormBuilder/Field.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/FormBuilder/Form.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Forms/UserForm.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Views/User/list.php" afterDir="false" />
+    <list default="true" id="a4dcfb0b-aa29-42a5-ad15-244af93fe6d2" name="Default Changelist" comment="Fix problem redirect after send token. &#10;Removed route params in controller constructor. Add UserForm &#10;to make the controller thinner">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Config/routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Config/routes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/401.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/404.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/App/Controllers/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/LoginController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Controllers/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/MainController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/Controllers/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/RegisterController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Controllers/UsersController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Core/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Core/Controller.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Core/Model.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Core/Model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Core/Router.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Core/Router.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Core/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Core/View.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Models/Validators/Validator.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Models/Validators/Validator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Views/Layouts/default.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Layouts/default.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Views/Login/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Login/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Views/User/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/User/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Views/Users/index.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/logout.php" beforeDir="false" afterPath="$PROJECT_DIR$/logout.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/footer.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/delete_user.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/edit_user.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/get_user.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/get_users.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/is_unique_user.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/login_user.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/save_user.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/string_challenge.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/upload_profile_image.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions/validate_user.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/header.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/login.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logout.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/entity/entities.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/user/add-user.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/user/delete-user.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/user/edit-user.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/user/user.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/user/users.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/register.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/userdata.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +145,7 @@
       <workItem from="1605825116361" duration="2875000" />
       <workItem from="1605856340665" duration="21709000" />
       <workItem from="1606043664440" duration="23746000" />
-      <workItem from="1606084385726" duration="1259000" />
+      <workItem from="1606084385726" duration="1941000" />
     </task>
     <task id="LOCAL-00001" summary="update auth (unique email, some fix)">
       <created>1605050499298</created>
@@ -189,7 +196,14 @@
       <option name="project" value="LOCAL" />
       <updated>1605858782302</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Fix problem redirect after send token. &#10;Removed route params in controller constructor. Add UserForm &#10;to make the controller thinner">
+      <created>1606085802461</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1606085802461</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -242,7 +256,8 @@
     <MESSAGE value="release image addition and edition on user profile" />
     <MESSAGE value="Add Model class, now need call it's methods to work with data. Add SendToken method to RegisterController. Add composer require PHPMailer." />
     <MESSAGE value="token add" />
-    <option name="LAST_COMMIT_MESSAGE" value="token add" />
+    <MESSAGE value="Fix problem redirect after send token. &#10;Removed route params in controller constructor. Add UserForm &#10;to make the controller thinner" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix problem redirect after send token. &#10;Removed route params in controller constructor. Add UserForm &#10;to make the controller thinner" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2010" y="269" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605779703200">
@@ -253,10 +268,10 @@
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state x="2404" y="27" width="1106" height="1053" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605734816038" />
-    <state x="2283" y="281" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1605791124051">
+    <state x="2283" y="281" width="524" height="509" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1606085980354">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
-    <state x="2283" y="281" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605791124051" />
+    <state x="2283" y="281" width="524" height="509" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1606085980354" />
     <state x="726" y="301" width="524" height="502" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/67.27.1853.1053/1920.0.1600.900@67.27.1853.1053" timestamp="1604745257242" />
     <state x="2307" y="354" width="524" height="491" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1605825816194">
       <screen x="1600" y="0" width="1920" height="1080" />
@@ -285,10 +300,10 @@
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state x="2389" y="192" width="1022" height="737" key="SettingsEditor/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1604858535633" />
-    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1605793106726">
+    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1606085816692">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
-    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1605793106726" />
+    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1606085816692" />
     <state x="2066" y="354" width="1275" height="775" key="dock-window-1" timestamp="1605138577289">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>

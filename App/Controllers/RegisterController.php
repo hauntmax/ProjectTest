@@ -6,7 +6,6 @@ namespace App\Controllers;
 use App\Core\Controller;
 use App\Forms\UserForm;
 use App\Models\User;
-use App\Models\Validators\UserValidator;
 use PHPMailer\PHPMailer\PHPMailer;
 
 
