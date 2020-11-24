@@ -4,7 +4,7 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
-use App\Forms\UserForm;
+use App\Forms\User\UserCreateForm;
 use App\Models\User;
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -14,29 +14,26 @@ class RegisterController extends Controller
     public function __construct()
     {
         parent::__construct();
-        User::getInstance();
     }
 
     public function IndexAction()
     {
-        $form = new UserForm();
-        $createValues = $form->getCreateValues();
-        if (!empty($createValues)) {
-            if (!empty($form->validateCreateErrors())) {
-                $this->view->render("Добавить пользователя", [
-                    'errorsValidate' => $form->validateCreateErrors()
-                ]);
-            } else {
-                $createValues['profile-image'] = !empty($_FILES['profile-image']['name']) ?
-                    User::uploadProfileImage($_FILES['profile-image']['tmp_name'],
-                        $_SERVER['DOCUMENT_ROOT'] . "/upload/") : "/upload/noimage.jpg";
-                $createValues['token'] = md5($createValues['email'] . time());
-                User::create($createValues);
-                $this->SendToken($createValues['email'], $createValues['id'], $createValues['token']);
-                $this->view->redirect("/register");
-            }
-        } else {
+        $form = new UserCreateForm();
+        $createValues = $form->getValues();
+        if (empty($createValues)) {
             $this->view->render("Регистрация");
+        }
+        if (!empty($form->validateErrors())) {
+            $this->view->render("Добавить пользователя", [
+                'errorsValidate' => $form->validateErrors()
+            ]);
+        } else {
+            if ($form->isUploadProfileImage()) {
+                $createValues['profile-image'] = User::uploadProfileImage($form->getImageTmpName());
+            }
+            $createValues['token'] = sha1($createValues['email'] . time());
+            User::create($createValues);
+            $this->SendToken($createValues['email'], $createValues['id'], $createValues['token']);
         }
     }
 
@@ -52,7 +49,6 @@ class RegisterController extends Controller
         $user = User::getById($this->routeParams['id']);
         if ($user && $token === $user['token']) {
             $user['status-account'] = true;
-            unset($user['token']);
             User::update($user);
             $this->view->render('Активация аккаунта', [
                 'successActivation' => "Аккаунт " . $user['email'] . " активирован"
@@ -63,7 +59,6 @@ class RegisterController extends Controller
             ]);
         }
     }
-
 
     /**
      * Метод для отправки токена подтверждения регистрации по Email
@@ -124,7 +119,8 @@ class RegisterController extends Controller
         if (!$mail->send()) {
             die("При отправке подтверждения на Email что-то пошло не так<br>" . $mail->ErrorInfo);
         } else {
-            $_SESSION['successMessageRegister'] = "<strong>Регистрация прошла успешно!!!</strong>
+            $_SESSION['successMessageRegister'] = "
+                <strong>Регистрация прошла успешно!!!</strong><br>
                 Нужно перейти по ссылке, отправленной на $email";
             echo "<script>window.location.assign('/register')</script>";
             exit();

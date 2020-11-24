@@ -33,8 +33,8 @@
         </div>
 
          <!--блок с авторизацией -->
-        <?php if (isset($_SESSION['authorize'])) {
-            if ($_SESSION['authorize']) { ?>
+        <?php if (isset($_SESSION['isAuthorize'])) {
+            if ($_SESSION['isAuthorize']) { ?>
                 <div class="block-top-auth">
                     <p><a href="/user/<?=$_SESSION['userId']?>"><?=$_SESSION['email']?></a></p>
                     <p><a href="/login/logout">Выйти</a></p>

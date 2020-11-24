@@ -7,12 +7,25 @@ use App\Core\Model;
 
 class User extends Model
 {
-    private static string $dataPath;
-
     public function __construct()
     {
         parent::__construct();
-        self::$dataPath = $_SERVER['DOCUMENT_ROOT'] . "/userdata";
+    }
+
+    /**
+     * @return string
+     */
+    public static function getDataPath()
+    {
+        return $_SERVER['DOCUMENT_ROOT'] . "/userdata";
+    }
+
+    /**
+     * @return string
+     */
+    public static function getImagePath()
+    {
+        return $_SERVER['DOCUMENT_ROOT'] . "/upload/";
     }
 
     /**
@@ -21,7 +34,7 @@ class User extends Model
     public static function getAll(): array
     {
         $users = array();
-        foreach (glob(self::$dataPath . "/*.json") as $jsonFilePath) {
+        foreach (glob(self::getDataPath() . "/*.json") as $jsonFilePath) {
             $user = json_decode(file_get_contents($jsonFilePath), true);
             $users[$user['id']] = $user;
         }
@@ -35,12 +48,12 @@ class User extends Model
     public static function getById(string $id)
     {
         try {
-            $user = json_decode(file_get_contents(self::$dataPath . '/' . $id . '.json'), true);
+            $user = json_decode(file_get_contents(self::getDataPath() . '/' . $id . '.json'), true);
             if ($user) {
                 return $user;
             }
         } catch (\Exception $exception) {
-            die("File " . self::$dataPath . "/$id.json can't be loaded<br>" . $exception);
+            die("File " . self::getDataPath() . "/$id.json can't be loaded<br>" . $exception);
         }
         return false;
     }
@@ -52,7 +65,7 @@ class User extends Model
     public static function create(array $userData)
     {
         $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
-        if (file_put_contents(self::$dataPath . '/' . $userData['id'] . ".json",
+        if (file_put_contents(self::getDataPath() . '/' . $userData['id'] . ".json",
             json_encode($userData))) {
             return $userData['id'];
         }
@@ -65,8 +78,7 @@ class User extends Model
      */
     public static function update(array $userData)
     {
-        self::delete($userData['id']);
-        if (file_put_contents(self::$dataPath . '/' . $userData['id'] . ".json", json_encode($userData))) {
+        if (file_put_contents(self::getDataPath() . '/' . $userData['id'] . ".json", json_encode($userData))) {
             return $userData['id'];
         }
         return false;
@@ -79,7 +91,11 @@ class User extends Model
     public static function delete(string $id): bool
     {
         $user = self::getById($id);
-        if (unlink($_SERVER['DOCUMENT_ROOT'] . "/userdata/" . $user['id'] . ".json")) {
+        if (!$user) {
+            return false;
+        }
+        try {
+            unlink($_SERVER['DOCUMENT_ROOT'] . "/userdata/" . $user['id'] . ".json");
             if (isset($user['profile-image']) && $user['profile-image'] !== "/upload/noimage.jpg") {
                 unlink($_SERVER['DOCUMENT_ROOT'] . $user['profile-image']);
             }
@@ -89,8 +105,9 @@ class User extends Model
                 header('Location:/');
             }
             return true;
+        } catch (\Exception $ex) {
+            die("File " . self::getDataPath() . "/$id.json couldn't be deleted<br>" . $ex);
         }
-        return false;
     }
 
     /**
@@ -110,11 +127,10 @@ class User extends Model
     /**
      * Метод загружает изображение в директорию
      * @param string $tmpFileName
-     * @param string $imageDir
      * @return string
      * Возвращает путь загруженного изображения
      */
-    public static function uploadProfileImage(string $tmpFileName, string $imageDir): string
+    public static function uploadProfileImage(string $tmpFileName): string
     {
         $errorCode = $_FILES['profile-image']['error'];
         // Проверка на ошибки при загрузке файла
@@ -122,13 +138,13 @@ class User extends Model
             // || !is_uploaded_file($tmpFileName) - для проверки на то, что файл загружен
             // Массив с ошибками при загрузке файла
             $errorMessages = [
-                UPLOAD_ERR_INI_SIZE   => 'Размер файла превысил значение upload_max_filesize в конфигурации PHP.',
-                UPLOAD_ERR_FORM_SIZE  => 'Размер загружаемого файла превысил значение MAX_FILE_SIZE в HTML-форме.',
-                UPLOAD_ERR_PARTIAL    => 'Загружаемый файл был получен только частично.',
-                UPLOAD_ERR_NO_FILE    => 'Файл не был загружен.',
+                UPLOAD_ERR_INI_SIZE => 'Размер файла превысил значение upload_max_filesize в конфигурации PHP.',
+                UPLOAD_ERR_FORM_SIZE => 'Размер загружаемого файла превысил значение MAX_FILE_SIZE в HTML-форме.',
+                UPLOAD_ERR_PARTIAL => 'Загружаемый файл был получен только частично.',
+                UPLOAD_ERR_NO_FILE => 'Файл не был загружен.',
                 UPLOAD_ERR_NO_TMP_DIR => 'Отсутствует временная папка.',
                 UPLOAD_ERR_CANT_WRITE => 'Не удалось записать файл на диск.',
-                UPLOAD_ERR_EXTENSION  => 'PHP-расширение остановило загрузку файла.',
+                UPLOAD_ERR_EXTENSION => 'PHP-расширение остановило загрузку файла.',
             ];
             // Зададим неизвестную ошибку
             $unknownMessage = 'При загрузке файла произошла неизвестная ошибка.';
@@ -142,16 +158,16 @@ class User extends Model
 
         // Проверить MIME тип загружаемого файла
         $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime = (string) finfo_file($fileInfo, $tmpFileName);
-        if (strpos($mime, 'image') === false){
+        $mime = (string)finfo_file($fileInfo, $tmpFileName);
+        if (strpos($mime, 'image') === false) {
             die('Загружаемый файл должен быть изображением');
         }
 
         // Нужно добавить валидацию изображения
         $imageSize = getimagesize($tmpFileName);
-        $limitBytes = 1024*1024*5;
-        $limitWidth = 1280;
-        $limitHeight = 768;
+        $limitBytes = 1024 * 1024 * 5;
+        $limitWidth = 1600;
+        $limitHeight = 900;
         if (filesize($tmpFileName) > $limitBytes) {
             die('Размер изображения не должен превышать 5 Мбайт');
         }
@@ -170,10 +186,10 @@ class User extends Model
         $extension = image_type_to_extension($imageSize[2]);
         $format = str_replace('jpeg', 'jpg', $extension);
 
-        if (!move_uploaded_file($tmpFileName, $imageDir . $nameImageFile . $format)) {
+        if (!move_uploaded_file($tmpFileName, self::getImagePath() . $nameImageFile . $format)) {
             die("При записи изображения на диск произошла ошибка.");
         }
 
-        return  '/upload/' . $nameImageFile . $format;
+        return '/upload/' . $nameImageFile . $format;
     }
 }

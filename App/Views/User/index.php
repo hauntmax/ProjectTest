@@ -1,11 +1,11 @@
 <div class="content">
-    <?php if (isset($_SESSION['authorize']) && $_SESSION['authorize']) { ?>
+    <?php if (isset($_SESSION['isAuthorize']) && $_SESSION['isAuthorize']) { ?>
         <?php if (isset($errorFind)) { ?>
             <h1><?=$errorFind?></h1>
         <?php } else { ?>
             <?php if (isset($user['profile-image'])) { ?>
                 <div class="block">
-                    <img class="img-thumbnail w-50 h-50" src="<?=$user['profile-image']?>" alt="user-profile">
+                    <img class="img-thumbnail w-25 h-25" src="<?=$user['profile-image']?>" alt="user-profile">
                 </div>
             <?php } ?>
             <?php if (isset($user['status-account']) && $user['status-account']) { ?>

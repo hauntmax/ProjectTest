@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Models\Validators;
+namespace App\Forms\Validators;
 
 
 class UserValidator extends Validator

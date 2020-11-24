@@ -1,4 +1,4 @@
-<?php if (isset($_SESSION['authorize']) && $_SESSION['authorize']) { ?>
+<?php if (isset($_SESSION['isAuthorize']) && $_SESSION['isAuthorize']) { ?>
     <div class="content">
         <?php
         var_dump($users);

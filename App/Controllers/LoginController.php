@@ -4,7 +4,7 @@
 namespace App\Controllers;
 
 use App\Core\Controller;
-use App\Forms\UserForm;
+use App\Forms\User\UserLoginForm;
 use App\Models\User;
 
 class LoginController extends Controller
@@ -12,23 +12,20 @@ class LoginController extends Controller
     public function __construct()
     {
         parent::__construct();
-        User::getInstance();
     }
 
     public function IndexAction()
     {
-        $form = new UserForm();
-        $loginValues = $form->getLoginValues();
-        if ($loginValues) {
-            if ($this->LoginUser($loginValues)) {
-                $this->view->redirect("/user/" . $_SESSION['userId']);
-            } else {
-                $this->view->render("Вход", [
-                    'errorLogin' => "Введены неверные данные или аккаунт не активирован"
-                ]);
-            }
-        } else {
+        $form = new UserLoginForm();
+        if (!$form->getValues()) {
             $this->view->render("Вход");
+        }
+        if (!$this->LoginUser($form->getValues())) {
+            $this->view->render("Вход", [
+                'errorLogin' => "Введены неверные данные или аккаунт не активирован"
+            ]);
+        } else {
+            $this->view->redirect("/user/" . $_SESSION['userId']);
         }
     }
 
@@ -50,7 +47,8 @@ class LoginController extends Controller
                 } else {
                     $_SESSION['userId'] = $user['id'];
                     $_SESSION['email'] = $loginData['email'];
-                    $_SESSION['authorize'] = true;
+                    $_SESSION['authorize-token'] = $user['token'];
+                    $_SESSION['isAuthorize'] = true;
                     return true;
                 }
             }
