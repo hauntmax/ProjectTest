@@ -1,5 +1,5 @@
-<?php if (isset($_SESSION['isAuthorize']) && $_SESSION['isAuthorize']) { ?>
-    <div class="content">
+<div class="content">
+    <?php if (isset($_SESSION['isAuthorize']) && $_SESSION['isAuthorize']) { ?>
         <?php
         var_dump($users);
         foreach ($users as $id => $user) { ?>
@@ -18,14 +18,12 @@
             </div>
         <?php } ?>
         <a class="btn btn-primary" href="/user/create/new">Добавить</a>
-    </div>
-<?php } else {
-    header('HTTP/1.1 401 Unauthorized');
-    header("Status: 401 Unauthorized");
-    ?>
-    <div class="content">
+    <?php } else {
+        header('HTTP/1.1 401 Unauthorized');
+        header("Status: 401 Unauthorized");
+        ?>
         <div class="block">
-            <h3>Для просмотра страницы нужно авторизоваться</h3>
+            <h3>Для просмотра пользователей нужно авторизоваться</h3>
         </div>
-    </div>
-<?php } ?>
+    <?php } ?>
+</div>

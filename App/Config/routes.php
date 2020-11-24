@@ -45,4 +45,26 @@ return array(
         'controller' => 'user',
         'action' => 'delete'
     ],
+
+    // Articles
+    'article/list' => [
+        'controller' => 'article',
+        'action' => 'list'
+    ],
+    'article/{id:\w+}' => [
+        'controller' => 'article',
+        'action' => 'index'
+    ],
+    'article/create/new' => [
+        'controller' => 'article',
+        'action' => 'create'
+    ],
+    'article/{id:\w+}/update' => [
+        'controller' => 'article',
+        'action' => 'update'
+    ],
+    'article/{id:\w+}/delete' => [
+        'controller' => 'article',
+        'action' => 'delete'
+    ],
 );

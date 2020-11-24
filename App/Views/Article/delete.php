@@ -1,11 +1,11 @@
 <div class="content">
     <?php if (isset($_SESSION['isAuthorize']) && $_SESSION['isAuthorize']) { ?>
         <?php if (isset($errorFind)) { ?>
-            <h1><?= $errorFind ?></h1>
+            <h1><?=$errorFind?></h1>
         <?php } else { ?>
-            <form name="delete-user" action="" method="post">
-                <p>Вы действительно хотите удалить пользователя
-                    <a href="/user/<?= $user['id'] ?>"><?= $user['name'] ?></a> ?
+            <form name="delete-article" action="" method="post">
+                <p>Вы действительно хотите удалить статью
+                    <a href="/article/<?=$article['id']?>"><?=$article['heading']?></a> ?
                 </p>
                 <p>
                     <input type="submit" name="submit" id="submit" value="Удалить" class="btn btn-primary">
@@ -14,9 +14,10 @@
         <?php } ?>
     <?php } else {
         header('HTTP/1.1 401 Unauthorized');
-        header("Status: 401 Unauthorized"); ?>
+        header("Status: 401 Unauthorized");?>
         <div class="block">
-            <h3>Для удаления пользователя нужно авторизоваться</h3>
+            <h3>Для удаления статьи нужно авторизоваться</h3>
         </div>
     <?php } ?>
+
 </div>

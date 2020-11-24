@@ -20,7 +20,7 @@
             <ul>
                 <li><a href="/">Главная</a></li>
                 <li><a href="/user/list">Пользователи</a></li>
-                <li><a href="#">Сущности</a></li>
+                <li><a href="/article/list">Статьи</a></li>
             </ul>
         </div>
 

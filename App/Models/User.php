@@ -7,25 +7,15 @@ use App\Core\Model;
 
 class User extends Model
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * @return string
-     */
-    public static function getDataPath()
-    {
-        return $_SERVER['DOCUMENT_ROOT'] . "/userdata";
-    }
-
-    /**
-     * @return string
-     */
     public static function getImagePath()
     {
-        return $_SERVER['DOCUMENT_ROOT'] . "/upload/";
+        return $_SERVER['DOCUMENT_ROOT'] . '/upload/';
+    }
+
+    public function __construct()
+    {
+        self::$nameDirectory = 'userdata';
+        parent::__construct();
     }
 
     /**
@@ -33,12 +23,7 @@ class User extends Model
      */
     public static function getAll(): array
     {
-        $users = array();
-        foreach (glob(self::getDataPath() . "/*.json") as $jsonFilePath) {
-            $user = json_decode(file_get_contents($jsonFilePath), true);
-            $users[$user['id']] = $user;
-        }
-        return $users;
+        return parent::getAll();
     }
 
     /**
@@ -47,15 +32,7 @@ class User extends Model
      */
     public static function getById(string $id)
     {
-        try {
-            $user = json_decode(file_get_contents(self::getDataPath() . '/' . $id . '.json'), true);
-            if ($user) {
-                return $user;
-            }
-        } catch (\Exception $exception) {
-            die("File " . self::getDataPath() . "/$id.json can't be loaded<br>" . $exception);
-        }
-        return false;
+        return parent::getById($id);
     }
 
     /**
@@ -65,11 +42,7 @@ class User extends Model
     public static function create(array $userData)
     {
         $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
-        if (file_put_contents(self::getDataPath() . '/' . $userData['id'] . ".json",
-            json_encode($userData))) {
-            return $userData['id'];
-        }
-        return false;
+        return parent::create($userData);
     }
 
     /**
@@ -78,10 +51,7 @@ class User extends Model
      */
     public static function update(array $userData)
     {
-        if (file_put_contents(self::getDataPath() . '/' . $userData['id'] . ".json", json_encode($userData))) {
-            return $userData['id'];
-        }
-        return false;
+        return parent::update($userData);
     }
 
     /**
@@ -94,20 +64,15 @@ class User extends Model
         if (!$user) {
             return false;
         }
-        try {
-            unlink($_SERVER['DOCUMENT_ROOT'] . "/userdata/" . $user['id'] . ".json");
-            if (isset($user['profile-image']) && $user['profile-image'] !== "/upload/noimage.jpg") {
-                unlink($_SERVER['DOCUMENT_ROOT'] . $user['profile-image']);
-            }
-            if (isset($_SESSION['userId']) && $user['id'] == $_SESSION['userId']) {
-                session_start();
-                session_destroy();
-                header('Location:/');
-            }
-            return true;
-        } catch (\Exception $ex) {
-            die("File " . self::getDataPath() . "/$id.json couldn't be deleted<br>" . $ex);
+        if (isset($user['profile-image']) && $user['profile-image'] !== "/upload/noimage.jpg") {
+            unlink($_SERVER['DOCUMENT_ROOT'] . $user['profile-image']);
         }
+        if (isset($_SESSION['userId']) && $user['id'] == $_SESSION['userId']) {
+            session_start();
+            session_destroy();
+            header('Location:/');
+        }
+        return parent::delete($id);
     }
 
     /**
@@ -186,7 +151,7 @@ class User extends Model
         $extension = image_type_to_extension($imageSize[2]);
         $format = str_replace('jpeg', 'jpg', $extension);
 
-        if (!move_uploaded_file($tmpFileName, self::getImagePath() . $nameImageFile . $format)) {
+        if (!move_uploaded_file($tmpFileName, self::getImagePath(). $nameImageFile . $format)) {
             die("При записи изображения на диск произошла ошибка.");
         }
 

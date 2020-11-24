@@ -15,6 +15,7 @@ class UserController extends Controller
     public function __construct()
     {
         parent::__construct();
+        User::getInstance();
     }
 
     public function IndexAction()
@@ -62,12 +63,12 @@ class UserController extends Controller
     {
         $form = new UserUpdateForm();
         $user = User::getById($this->routeParams['id']);
-        $updateValues = $form->getValues($user);
         if (!$user) {
             $this->view->render("Редактировать пользователя", [
                 'errorFind' => "Нет пользователя с ID: " . $this->routeParams['id']
             ]);
         }
+        $updateValues = $form->getValues($user);
         if (empty($updateValues)) {
             $this->view->render("Редактировать пользователя", [
                 'user' => $user
