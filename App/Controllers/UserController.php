@@ -52,7 +52,7 @@ class UserController extends Controller
             ]);
         } else {
             if ($form->isUploadProfileImage()) {
-                $createValues['profile-image'] = User::uploadProfileImage($form->getImageTmpName());
+                $createValues['profile_image'] = User::uploadProfileImage($form->getImageTmpName());
             }
             User::create($createValues);
             $this->view->redirect("/user/list");
@@ -80,10 +80,10 @@ class UserController extends Controller
             ]);
         } else {
             if ($form->isUploadProfileImage()) {
-                $updateValues['profile-image'] = User::uploadProfileImage($form->getImageTmpName());
+                $updateValues['profile_image'] = User::uploadProfileImage($form->getImageTmpName());
             }
             User::update($updateValues);
-            $this->view->redirect("/user/" . $this->routeParams['id']);
+            //$this->view->redirect("/user/" . $this->routeParams['id']);
         }
     }
 
@@ -102,6 +102,11 @@ class UserController extends Controller
             ]);
         } else {
             User::delete($this->routeParams['id']);
+            if (isset($_SESSION['userId']) && $user['id'] == $_SESSION['userId']) {
+                session_start();
+                session_destroy();
+                $this->view->redirect("/");
+            }
             $this->view->redirect("/user/list");
         }
     }

@@ -4,8 +4,6 @@
 namespace App\Core;
 
 
-use App\Models\Validators\Validator;
-
 abstract class Controller
 {
     protected array $routeParams;

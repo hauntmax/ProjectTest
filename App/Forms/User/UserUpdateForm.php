@@ -20,12 +20,12 @@ class UserUpdateForm extends UserCreateForm
                 'id' => $user['id'],
                 'name' => $this->validator->clean($_POST['name']),
                 'email' => $this->validator->clean($_POST['email']),
-                'status-account' => $user['status-account'],
+                'status_account' => $user['status_account'],
                 'password' => !empty($_POST['password']) ?
-                    password_hash($this->validator->clean($_POST['password']), PASSWORD_DEFAULT) :
+                    password_hash($_POST['password'], PASSWORD_DEFAULT) :
                     $user['password'],
                 'phone' => $this->validator->clean($_POST['phone']),
-                'profile-image' => "/upload/noimage.jpg",
+                'profile_image' => $user['profile_image'],
                 'token' => $user['token']
             ];
         }

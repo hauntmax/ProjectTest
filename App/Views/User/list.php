@@ -2,18 +2,18 @@
     <?php if (isset($_SESSION['isAuthorize']) && $_SESSION['isAuthorize']) { ?>
         <?php
         var_dump($users);
-        foreach ($users as $id => $user) { ?>
+        foreach ($users as $user) { ?>
             <div class="block">
-                <?php if (isset($user['status-account']) && $user['status-account']) { ?>
+                <?php if (isset($user['status_account']) && $user['status_account']) { ?>
                     <h2 class="alert-success">Аккаунт активирован</h2>
                 <?php } else { ?>
                     <h2 class="alert-danger">Аккаунт не активирован</h2>
                 <?php } ?>
-                <h1>Имя: <a href="/user/<?= $id ?>"><?= $user['name'] ?></a></h1>
+                <h1>Имя: <a href="/user/<?= $user['id'] ?>"><?= $user['name'] ?></a></h1>
                 <p>Email: <?= $user['email'] ?></p>
                 <p>Номер телефона: <?= $user['phone'] ?></p>
-                <a class="btn btn-warning" href="/user/<?= $id ?>/update">Редактировать</a>
-                <a class="btn btn-danger" href="/user/<?= $id ?>/delete">Удалить</a>
+                <a class="btn btn-warning" href="/user/<?= $user['id'] ?>/update">Редактировать</a>
+                <a class="btn btn-danger" href="/user/<?= $user['id'] ?>/delete">Удалить</a>
                 <hr>
             </div>
         <?php } ?>

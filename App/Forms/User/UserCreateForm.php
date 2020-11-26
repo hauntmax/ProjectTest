@@ -15,14 +15,9 @@ class UserCreateForm extends Form
         $this->validator = new UserValidator();
     }
 
-    public function getImageName()
-    {
-        return $_FILES['profile-image']['name'];
-    }
-
     public function getImageTmpName()
     {
-        return $_FILES['profile-image']['tmp_name'];
+        return isset($_FILES['profile-image']['tmp_name']) ? $_FILES['profile-image']['tmp_name'] : "";
     }
 
     public function getValues(array $data = null): array
@@ -32,10 +27,9 @@ class UserCreateForm extends Form
                 'id' => uniqid(),
                 'name' => $this->validator->clean($_POST['name']),
                 'email' => $this->validator->clean($_POST['email']),
-                'status-account' => false,
-                'password' => $this->validator->clean($_POST['password']),
+                'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
                 'phone' => $this->validator->clean($_POST['phone']),
-                'profile-image' => "/upload/noimage.jpg"
+                'profile_image' => "/upload/noimage.jpg"
             ];
         }
         return [];
@@ -52,7 +46,7 @@ class UserCreateForm extends Form
 
     public function isUploadProfileImage(): bool
     {
-        if (!empty($this->getImageName())) {
+        if (!empty($_FILES['profile-image']['name'])) {
             return true;
         }
         return false;

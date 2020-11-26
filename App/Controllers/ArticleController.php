@@ -9,7 +9,6 @@ use App\Forms\Article\ArticleCreateForm;
 use App\Forms\Article\ArticleDeleteForm;
 use App\Forms\Article\ArticleUpdateForm;
 use App\Models\Article;
-use App\Models\User;
 
 class ArticleController extends Controller
 {
@@ -78,7 +77,7 @@ class ArticleController extends Controller
             ]);
         } else {
             Article::update($updateValues);
-            $this->view->redirect("/article/" . $this->routeParams['id']);
+            //$this->view->redirect("/article/" . $this->routeParams['id']);
         }
     }
 

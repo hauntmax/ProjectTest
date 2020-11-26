@@ -6,8 +6,8 @@ namespace App\Forms\Validators;
 
 class Validator
 {
-    private array $rules;
-    private array $errors;
+    private array $rules = [];
+    private array $errors = [];
 
     public function isNotEmpty($data)
     {

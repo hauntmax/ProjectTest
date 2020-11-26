@@ -20,12 +20,10 @@ class ArticleUpdateForm extends ArticleCreateForm
                 'id' => $article['id'],
                 'heading' => $this->validator->clean($_POST['heading']),
                 'text' => $this->validator->clean($_POST['text']),
-                'creation-date' => $article['creation-date'],
-                'updating-date' => date("d-m-Y H:i:s"),
-                'creator-id' => $article['creator-id'],
-                'creator-email' => $article['creator-email'],
-                'updater-id' => $_SESSION['userId'],
-                'updater-email' => $_SESSION['email']
+                'creation_date' => $article['creation_date'],
+                //'updating-date' => date("d-m-Y H:i:s"),
+                'user_id' => $article['user_id'],
+                'updater_id' => $_SESSION['userId'],
             ];
         }
         return [];

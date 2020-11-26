@@ -22,9 +22,8 @@ class ArticleCreateForm extends Form
                 'id' => uniqid(),
                 'heading' => $this->validator->clean($_POST['heading']),
                 'text' => $this->validator->clean($_POST['text']),
-                'creation-date' => date("d-m-Y H:i:s"),
-                'creator-id' => $_SESSION['userId'],
-                'creator-email' => $_SESSION['email']
+                //'creation-date' => date("d-m-Y H:i:s"),
+                'user_id' => $_SESSION['userId'],
             ];
         }
         return [];

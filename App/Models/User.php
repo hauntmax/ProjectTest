@@ -7,72 +7,56 @@ use App\Core\Model;
 
 class User extends Model
 {
+    public function __construct()
+    {
+        self::$tableName = 'users';
+        parent::__construct();
+    }
+
     public static function getImagePath()
     {
         return $_SERVER['DOCUMENT_ROOT'] . '/upload/';
     }
 
-    public function __construct()
+    /**
+     * @param array $data
+     * @return false|mixed
+     */
+    public static function create(array $data)
     {
-        self::$nameDirectory = 'userdata';
-        parent::__construct();
+        $sql = "INSERT INTO " . self::$tableName . "(id,name,email,password,phone,profile_image)" .
+            " VALUES (:id, :name, :email, :password, :phone, :profile_image)";
+        return self::$db->query($sql, [
+            'id' => $data['id'],
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $data['password'],
+            'phone' => $data['phone'],
+            'profile_image' => $data['profile_image'],
+        ]);
     }
 
     /**
-     * @return array
+     * @param array $data
+     * @return mixed
      */
-    public static function getAll(): array
+    public static function update(array $data)
     {
-        return parent::getAll();
-    }
-
-    /**
-     * @param string $id
-     * @return false|mixed|void
-     */
-    public static function getById(string $id)
-    {
-        return parent::getById($id);
-    }
-
-    /**
-     * @param array $userData
-     * @return int
-     */
-    public static function create(array $userData)
-    {
-        $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
-        return parent::create($userData);
-    }
-
-    /**
-     * @param array $userData
-     * @return int
-     */
-    public static function update(array $userData)
-    {
-        return parent::update($userData);
-    }
-
-    /**
-     * @param string $id
-     * @return bool
-     */
-    public static function delete(string $id): bool
-    {
-        $user = self::getById($id);
-        if (!$user) {
-            return false;
-        }
-        if (isset($user['profile-image']) && $user['profile-image'] !== "/upload/noimage.jpg") {
-            unlink($_SERVER['DOCUMENT_ROOT'] . $user['profile-image']);
-        }
-        if (isset($_SESSION['userId']) && $user['id'] == $_SESSION['userId']) {
-            session_start();
-            session_destroy();
-            header('Location:/');
-        }
-        return parent::delete($id);
+        $sql = "UPDATE " . self::$tableName .
+            " SET name = :name, email = :email, password = :password, 
+               phone = :phone, profile_image = :profile_image,
+               status_account = :status_account, token = :token
+               WHERE id = :id";
+        return self::$db->query($sql, [
+            'id' => isset($data['id']) ? $data['id'] : "",
+            'name' => isset($data['name']) ? $data['name'] : "",
+            'email' => isset($data['email']) ? $data['email'] : "",
+            'password' => isset($data['password']) ? $data['password'] : "",
+            'phone' => isset($data['phone']) ? $data['phone'] : "",
+            'profile_image' => isset($data['profile_image']) ? $data['profile_image'] : "",
+            'status_account' => isset($data['status_account']) ? $data['status_account'] : "",
+            'token' => isset($data['token']) ? $data['token'] : "",
+        ]);
     }
 
     /**
@@ -151,7 +135,7 @@ class User extends Model
         $extension = image_type_to_extension($imageSize[2]);
         $format = str_replace('jpeg', 'jpg', $extension);
 
-        if (!move_uploaded_file($tmpFileName, self::getImagePath(). $nameImageFile . $format)) {
+        if (!move_uploaded_file($tmpFileName, self::getImagePath() . $nameImageFile . $format)) {
             die("При записи изображения на диск произошла ошибка.");
         }
 

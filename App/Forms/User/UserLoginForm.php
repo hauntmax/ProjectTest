@@ -19,7 +19,7 @@ class UserLoginForm extends Form
         if ($this->isSubmit()) {
             return array(
                 'email' => $this->validator->clean($_POST['email']),
-                'password' => $this->validator->clean($_POST['password'])
+                'password' => $_POST['password']
             );
         }
         return [];

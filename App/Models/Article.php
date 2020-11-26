@@ -10,51 +10,40 @@ class Article extends Model
 {
     public function __construct()
     {
-        self::$nameDirectory = 'articles';
+        self::$tableName = 'articles';
         parent::__construct();
-    }
-
-    /**
-     * @return array
-     */
-    public static function getAll(): array
-    {
-        return parent::getAll();
-    }
-
-    /**
-     * @param string $id
-     * @return false|mixed|void
-     */
-    public static function getById(string $id)
-    {
-        return parent::getById($id);
-    }
-
-    /**
-     * @param array $article
-     * @return int
-     */
-    public static function create(array $article)
-    {
-        return parent::create($article);
     }
 
     /**
      * @param array $data
      * @return false|mixed
      */
-    public static function update(array $data)
+    public static function create(array $data)
     {
-        return parent::update($data);
+        $sql = "INSERT INTO " . self::$tableName . "(id,heading,text,user_id)" .
+            " VALUES (:id, :heading, :text, :user_id)";
+        return self::$db->query($sql, [
+            'id' => $data['id'],
+            'heading' => $data['heading'],
+            'text' => $data['text'],
+            'user_id' => $data['user_id'],
+        ]);
     }
 
     /**
-     * @param string $id
-     * @return bool
+     * @param array $data
+     * @return mixed
      */
-    public static function delete(string $id)
+    public static function update(array $data)
     {
-        return parent::delete($id);
+        $sql = "UPDATE " . self::$tableName .
+            " SET heading = :heading, text = :text, updater_id = :updater_id
+               WHERE id = :id";
+        return self::$db->query($sql, [
+            'id' => isset($data['id']) ? $data['id'] : "",
+            'heading' => isset($data['heading']) ? $data['heading'] : "",
+            'text' => isset($data['text']) ? $data['text'] : "",
+            'updater_id' => isset($data['updater_id']) ? $data['updater_id'] : "",
+        ]);
     }
 }
