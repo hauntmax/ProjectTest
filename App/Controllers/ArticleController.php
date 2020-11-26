@@ -9,13 +9,13 @@ use App\Forms\Article\ArticleCreateForm;
 use App\Forms\Article\ArticleDeleteForm;
 use App\Forms\Article\ArticleUpdateForm;
 use App\Models\Article;
+use App\Models\User;
 
 class ArticleController extends Controller
 {
     public function __construct()
     {
         parent::__construct();
-        Article::getInstance();
     }
 
     public function IndexAction()
@@ -23,7 +23,7 @@ class ArticleController extends Controller
         $article = Article::getById($this->routeParams['id']);
         if ($article) {
             $this->view->render("Статья", [
-                'article' => $article
+                'article' => $article,
             ]);
         } else {
             $this->view->render("Статья", [
@@ -77,7 +77,7 @@ class ArticleController extends Controller
             ]);
         } else {
             Article::update($updateValues);
-            //$this->view->redirect("/article/" . $this->routeParams['id']);
+            $this->view->redirect("/article/" . $this->routeParams['id']);
         }
     }
 

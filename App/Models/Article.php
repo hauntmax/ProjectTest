@@ -4,14 +4,30 @@
 namespace App\Models;
 
 
+use App\Core\Db;
 use App\Core\Model;
 
 class Article extends Model
 {
-    public function __construct()
+    protected static string $tableName = 'articles';
+
+    /**
+     * @param string $id
+     * @return false|mixed
+     */
+    public static function getById(string $id)
     {
-        self::$tableName = 'articles';
-        parent::__construct();
+        $sql = "SELECT * FROM " . self::$tableName . " WHERE id = :id";
+        return Db::getInstance()->queryFetchAssoc($sql, ['id' => $id])[0];
+    }
+
+    /**
+     * @return array
+     */
+    public static function getAll()
+    {
+        $sql = "SELECT * FROM " . self::$tableName;
+        return Db::getInstance()->queryFetchAssoc($sql);
     }
 
     /**
@@ -22,7 +38,7 @@ class Article extends Model
     {
         $sql = "INSERT INTO " . self::$tableName . "(id,heading,text,user_id)" .
             " VALUES (:id, :heading, :text, :user_id)";
-        return self::$db->query($sql, [
+        return Db::getInstance()->query($sql, [
             'id' => $data['id'],
             'heading' => $data['heading'],
             'text' => $data['text'],
@@ -39,11 +55,23 @@ class Article extends Model
         $sql = "UPDATE " . self::$tableName .
             " SET heading = :heading, text = :text, updater_id = :updater_id
                WHERE id = :id";
-        return self::$db->query($sql, [
-            'id' => isset($data['id']) ? $data['id'] : "",
-            'heading' => isset($data['heading']) ? $data['heading'] : "",
-            'text' => isset($data['text']) ? $data['text'] : "",
-            'updater_id' => isset($data['updater_id']) ? $data['updater_id'] : "",
+        return Db::getInstance()->query($sql, [
+            'id' => $data['id'],
+            'heading' => $data['heading'],
+            'text' => $data['text'],
+            'updater_id' => $data['updater_id'],
+        ]);
+    }
+
+    /**
+     * @param string $id
+     * @return mixed
+     */
+    public static function delete(string $id)
+    {
+        $sql = "DELETE FROM " . self::$tableName . " WHERE id = :id";
+        return Db::getInstance()->query($sql, [
+            'id' => $id
         ]);
     }
 }

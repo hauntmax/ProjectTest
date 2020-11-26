@@ -12,7 +12,6 @@ class LoginController extends Controller
     public function __construct()
     {
         parent::__construct();
-        User::getInstance();
     }
 
     public function IndexAction()
@@ -43,7 +42,7 @@ class LoginController extends Controller
         foreach ($users as $user) {
             if (($user['email'] == $loginData['email']) &&
                 (password_verify($loginData['password'], $user['password']))) {
-                if ($user['status-account'] === false) {
+                if ($user['status-account'] === '0') {
                     return false;
                 } else {
                     $_SESSION['userId'] = $user['id'];

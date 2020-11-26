@@ -6,15 +6,15 @@
             <h3>Заголовок: <a href="/article/<?= $article['id'] ?>"><?= $article['heading'] ?></a></h3>
             <p>Дата создания: <?= $article['creation_date'] ?></p>
 
-            <p>Создатель: <a href="/user/<?= $article['user_id'] ?>"><?= $article['user_id'] ?></a></p>
+            <p>Создатель: <a href="/user/<?= $article['user_id'] ?>">Профиль</a></p>
 
             <?php if (isset($article['updater_id'])) { ?>
                 <p>Дата изменения: <?=$article['updating_date'];?></p>
                 <p>Изменил:
-                    <a href="/user/<?= $article['updater_id'] ?>"><?= $article['updater_id'] ?></a>
+                    <a href="/user/<?= $article['updater_id'] ?>">Профиль</a>
                 </p>
             <?php } else { ?>
-                <p>Не изменено</p>
+                <p>Не изменено или удалён последний редактор</p>
             <?php } ?>
 
             <?php if (isset($_SESSION['isAuthorize']) && $_SESSION['isAuthorize']) { ?>

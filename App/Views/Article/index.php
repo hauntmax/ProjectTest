@@ -6,15 +6,15 @@
         <p>Текст: <?= $article['text'] ?></p>
         <p>Дата создания: <?= $article['creation_date'] ?></p>
 
-        <p>Создатель: <a href="/user/<?= $article['user_id'] ?>"><?= $article['user_id'] ?></a></p>
+        <p>Создатель: <a href="/user/<?= $article['user_id'] ?>">Профиль</a></p>
 
         <?php if (isset($article['updater_id'])) { ?>
             <p>Дата изменения: <?=$article['updating_date'];?></p>
             <p>Изменил:
-                <a href="/user/<?= $article['updater_id'] ?>"><?= $article['updater_id'] ?></a>
+                <a href="/user/<?= $article['updater_id'] ?>">Профиль</a>
             </p>
         <?php } else { ?>
-            <p>Не изменено</p>
+            <p>Не изменено или удалён последний редактор</p>
         <?php } ?>
     <?php } ?>
 </div>

@@ -3,19 +3,35 @@
 
 namespace App\Models;
 
+use App\Core\Db;
 use App\Core\Model;
 
 class User extends Model
 {
-    public function __construct()
-    {
-        self::$tableName = 'users';
-        parent::__construct();
-    }
+    protected static string $tableName = 'users';
 
     public static function getImagePath()
     {
         return $_SERVER['DOCUMENT_ROOT'] . '/upload/';
+    }
+
+    /**
+     * @param string $id
+     * @return false|mixed
+     */
+    public static function getById(string $id)
+    {
+        $sql = "SELECT * FROM " . self::$tableName . " WHERE id = :id";
+        return Db::getInstance()->queryFetchAssoc($sql, ['id' => $id])[0];
+    }
+
+    /**
+     * @return array
+     */
+    public static function getAll()
+    {
+        $sql = "SELECT * FROM " . self::$tableName;
+        return Db::getInstance()->queryFetchAssoc($sql);
     }
 
     /**
@@ -24,15 +40,16 @@ class User extends Model
      */
     public static function create(array $data)
     {
-        $sql = "INSERT INTO " . self::$tableName . "(id,name,email,password,phone,profile_image)" .
-            " VALUES (:id, :name, :email, :password, :phone, :profile_image)";
-        return self::$db->query($sql, [
+        $sql = "INSERT INTO " . self::$tableName . "(id,name,email,password,phone,profile_image,token)" .
+            " VALUES (:id, :name, :email, :password, :phone, :profile_image, :token)";
+        return Db::getInstance()->query($sql, [
             'id' => $data['id'],
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => $data['password'],
             'phone' => $data['phone'],
             'profile_image' => $data['profile_image'],
+            'token' => $data['token']
         ]);
     }
 
@@ -47,15 +64,27 @@ class User extends Model
                phone = :phone, profile_image = :profile_image,
                status_account = :status_account, token = :token
                WHERE id = :id";
-        return self::$db->query($sql, [
-            'id' => isset($data['id']) ? $data['id'] : "",
-            'name' => isset($data['name']) ? $data['name'] : "",
-            'email' => isset($data['email']) ? $data['email'] : "",
-            'password' => isset($data['password']) ? $data['password'] : "",
-            'phone' => isset($data['phone']) ? $data['phone'] : "",
-            'profile_image' => isset($data['profile_image']) ? $data['profile_image'] : "",
-            'status_account' => isset($data['status_account']) ? $data['status_account'] : "",
-            'token' => isset($data['token']) ? $data['token'] : "",
+        return Db::getInstance()->query($sql, [
+            'id' => $data['id'],
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $data['password'],
+            'phone' => $data['phone'],
+            'profile_image' => $data['profile_image'],
+            'status_account' => $data['status_account'],
+            'token' => $data['token'],
+        ]);
+    }
+
+    /**
+     * @param string $id
+     * @return mixed
+     */
+    public static function delete(string $id)
+    {
+        $sql = "DELETE FROM " . self::$tableName . " WHERE id = :id";
+        return Db::getInstance()->query($sql, [
+            'id' => $id
         ]);
     }
 

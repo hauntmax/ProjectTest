@@ -29,6 +29,7 @@ class View
             require $pathView;
             $content = ob_get_clean();
             require $pathLayout;
+            exit();
         } else {
             die('Предcтавление ' . $this->path . '.php не найдено');
         }

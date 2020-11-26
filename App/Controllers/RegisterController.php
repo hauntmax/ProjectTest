@@ -14,7 +14,6 @@ class RegisterController extends Controller
     public function __construct()
     {
         parent::__construct();
-        User::getInstance();
     }
 
     public function IndexAction()
@@ -30,7 +29,7 @@ class RegisterController extends Controller
             ]);
         } else {
             if ($form->isUploadProfileImage()) {
-                $createValues['profile-image'] = User::uploadProfileImage($form->getImageTmpName());
+                $createValues['profile_image'] = User::uploadProfileImage($form->getImageTmpName());
             }
             $createValues['token'] = sha1($createValues['email'] . time());
             User::create($createValues);
@@ -49,7 +48,7 @@ class RegisterController extends Controller
         $token = $this->routeParams['token'];
         $user = User::getById($this->routeParams['id']);
         if ($user && $token === $user['token']) {
-            $user['status-account'] = true;
+            $user['status_account'] = '1';
             User::update($user);
             $this->view->render('Активация аккаунта', [
                 'successActivation' => "Аккаунт " . $user['email'] . " активирован"

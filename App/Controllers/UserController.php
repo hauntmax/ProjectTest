@@ -15,7 +15,6 @@ class UserController extends Controller
     public function __construct()
     {
         parent::__construct();
-        User::getInstance();
     }
 
     public function IndexAction()
@@ -83,7 +82,7 @@ class UserController extends Controller
                 $updateValues['profile_image'] = User::uploadProfileImage($form->getImageTmpName());
             }
             User::update($updateValues);
-            //$this->view->redirect("/user/" . $this->routeParams['id']);
+            $this->view->redirect("/user/" . $this->routeParams['id']);
         }
     }
 

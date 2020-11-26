@@ -4,16 +4,9 @@
 namespace App\Core;
 
 
-class Model extends Singleton
+class Model
 {
-    protected static Singleton $db;
     protected static string $tableName;
-
-    public function __construct()
-    {
-        parent::__construct();
-        self::$db = Db::getInstance();
-    }
 
     /**
      * @param string $id
@@ -21,8 +14,7 @@ class Model extends Singleton
      */
     public static function getById(string $id)
     {
-        $sql = "SELECT * FROM " . self::$tableName . " WHERE id = :id";
-        return self::$db->queryFetchAssoc($sql, ['id' => $id])[0];
+
     }
 
     /**
@@ -30,8 +22,7 @@ class Model extends Singleton
      */
     public static function getAll()
     {
-        $sql = "SELECT * FROM " . self::$tableName;
-        return self::$db->queryFetchAssoc($sql);
+
     }
 
     /**
@@ -58,9 +49,6 @@ class Model extends Singleton
      */
     public static function delete(string $id)
     {
-        $sql = "DELETE FROM " . self::$tableName . " WHERE id = :id";
-        return self::$db->query($sql, [
-            'id' => $id
-        ]);
+
     }
 }

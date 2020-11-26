@@ -11,9 +11,8 @@ class Db extends Singleton
 {
     protected PDO $pdo;
 
-    protected function __construct()
+    public function connect()
     {
-        parent::__construct();
         $config = require 'App/Config/db.php';
         try {
             $this->pdo = new PDO('mysql:host=' . $config['host'] . ';dbname=' . $config['dbname'],
@@ -56,8 +55,8 @@ class Db extends Singleton
      * @param array $params
      * @return mixed
      */
-    public function queryFetchColumn(string $sql, array $params = [])
-    {
-        return $this->query($sql, $params)->fetchColumn(PDO::FETCH_COLUMN);
-    }
+//    public function queryFetchColumn(string $sql, array $params = [])
+//    {
+//        return $this->query($sql, $params)->fetchColumn(PDO::FETCH_COLUMN);
+//    }
 }
