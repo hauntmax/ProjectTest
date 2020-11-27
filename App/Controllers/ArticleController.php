@@ -9,15 +9,9 @@ use App\Forms\Article\ArticleCreateForm;
 use App\Forms\Article\ArticleDeleteForm;
 use App\Forms\Article\ArticleUpdateForm;
 use App\Models\Article;
-use App\Models\User;
 
 class ArticleController extends Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function IndexAction()
     {
         $article = Article::getById($this->routeParams['id']);

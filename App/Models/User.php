@@ -16,25 +16,6 @@ class User extends Model
     }
 
     /**
-     * @param string $id
-     * @return false|mixed
-     */
-    public static function getById(string $id)
-    {
-        $sql = "SELECT * FROM " . self::$tableName . " WHERE id = :id";
-        return Db::getInstance()->queryFetchAssoc($sql, ['id' => $id])[0];
-    }
-
-    /**
-     * @return array
-     */
-    public static function getAll()
-    {
-        $sql = "SELECT * FROM " . self::$tableName;
-        return Db::getInstance()->queryFetchAssoc($sql);
-    }
-
-    /**
      * @param array $data
      * @return false|mixed
      */
@@ -73,18 +54,6 @@ class User extends Model
             'profile_image' => $data['profile_image'],
             'status_account' => $data['status_account'],
             'token' => $data['token'],
-        ]);
-    }
-
-    /**
-     * @param string $id
-     * @return mixed
-     */
-    public static function delete(string $id)
-    {
-        $sql = "DELETE FROM " . self::$tableName . " WHERE id = :id";
-        return Db::getInstance()->query($sql, [
-            'id' => $id
         ]);
     }
 

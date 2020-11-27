@@ -12,25 +12,6 @@ class Article extends Model
     protected static string $tableName = 'articles';
 
     /**
-     * @param string $id
-     * @return false|mixed
-     */
-    public static function getById(string $id)
-    {
-        $sql = "SELECT * FROM " . self::$tableName . " WHERE id = :id";
-        return Db::getInstance()->queryFetchAssoc($sql, ['id' => $id])[0];
-    }
-
-    /**
-     * @return array
-     */
-    public static function getAll()
-    {
-        $sql = "SELECT * FROM " . self::$tableName;
-        return Db::getInstance()->queryFetchAssoc($sql);
-    }
-
-    /**
      * @param array $data
      * @return false|mixed
      */
@@ -60,18 +41,6 @@ class Article extends Model
             'heading' => $data['heading'],
             'text' => $data['text'],
             'updater_id' => $data['updater_id'],
-        ]);
-    }
-
-    /**
-     * @param string $id
-     * @return mixed
-     */
-    public static function delete(string $id)
-    {
-        $sql = "DELETE FROM " . self::$tableName . " WHERE id = :id";
-        return Db::getInstance()->query($sql, [
-            'id' => $id
         ]);
     }
 }

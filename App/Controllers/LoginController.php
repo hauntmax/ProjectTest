@@ -9,11 +9,6 @@ use App\Models\User;
 
 class LoginController extends Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function IndexAction()
     {
         $form = new UserLoginForm();
@@ -42,7 +37,7 @@ class LoginController extends Controller
         foreach ($users as $user) {
             if (($user['email'] == $loginData['email']) &&
                 (password_verify($loginData['password'], $user['password']))) {
-                if ($user['status-account'] === '0') {
+                if (!$user['status_account']) {
                     return false;
                 } else {
                     $_SESSION['userId'] = $user['id'];

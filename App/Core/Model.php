@@ -14,7 +14,8 @@ class Model
      */
     public static function getById(string $id)
     {
-
+        $sql = "SELECT * FROM " . static::$tableName . " WHERE id = :id";
+        return Db::getInstance()->queryFetchAssoc($sql, ['id' => $id])[0];
     }
 
     /**
@@ -22,7 +23,8 @@ class Model
      */
     public static function getAll()
     {
-
+        $sql = "SELECT * FROM " . static::$tableName;
+        return Db::getInstance()->queryFetchAssoc($sql);
     }
 
     /**
@@ -49,6 +51,9 @@ class Model
      */
     public static function delete(string $id)
     {
-
+        $sql = "DELETE FROM " . static::$tableName . " WHERE id = :id";
+        return Db::getInstance()->query($sql, [
+            'id' => $id
+        ]);
     }
 }

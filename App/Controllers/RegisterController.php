@@ -11,11 +11,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class RegisterController extends Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function IndexAction()
     {
         $form = new UserCreateForm();

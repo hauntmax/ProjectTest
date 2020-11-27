@@ -12,11 +12,6 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function IndexAction()
     {
         $user = User::getById($this->routeParams['id']);
