@@ -15,7 +15,8 @@ class Model
     public static function getById(string $id)
     {
         $sql = "SELECT * FROM " . static::$tableName . " WHERE id = :id";
-        return Db::getInstance()->queryFetchAssoc($sql, ['id' => $id])[0];
+        $result = Db::getInstance()->queryFetchAssoc($sql, ['id' => $id]);
+        return reset($result);
     }
 
     /**

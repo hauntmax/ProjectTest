@@ -9,8 +9,17 @@ use PDOStatement;
 
 class Db extends Singleton
 {
+    /**
+     * Свойство для подключения и выполнения запросов к БД
+     * @var PDO
+     */
     protected PDO $pdo;
 
+    /**
+     * Метод для инициализации PDO объекта
+     *
+     * @return void
+     */
     public function connect()
     {
         $config = require 'App/Config/db.php';
@@ -18,12 +27,13 @@ class Db extends Singleton
             $this->pdo = new PDO('mysql:host=' . $config['host'] . ';dbname=' . $config['dbname'],
                 $config['user'], $config['password'], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
         } catch (PDOException $ex) {
-            die("Подключение на удалось: " . $ex->getMessage());
+            die("Подключение на удалось: " . $ex->getMessage() . PHP_EOL);
         }
     }
 
     /**
      * Метод подготавливает и выполняет запрос
+     *
      * @param string $sql
      * @param array $params
      * @return PDOStatement
@@ -41,6 +51,8 @@ class Db extends Singleton
     }
 
     /**
+     * Метод для получения массива из результата выборки из БД
+     *
      * @param string $sql
      * @param array $params
      * @return array

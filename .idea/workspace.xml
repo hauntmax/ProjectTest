@@ -19,26 +19,37 @@
     <select>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:main" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/main" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4dcfb0b-aa29-42a5-ad15-244af93fe6d2" name="Default Changelist" comment="Add method connect to Db class, change base model class">
-      <change afterPath="$PROJECT_DIR$/App/Core/Migration.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/command" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/commands/make_migration.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/commands/migrate.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/functions/dashesToCamelCase.php" afterDir="false" />
+    <list default="true" id="a4dcfb0b-aa29-42a5-ad15-244af93fe6d2" name="Default Changelist" comment="Add cli command script that allows make migration class">
+      <change afterPath="$PROJECT_DIR$/App/Core/Schema.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/App/Lib/registerclass.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/commands/list.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/commands/migrate:rollback.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/createVersionsTable.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/deleteMigration.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/getMigrationFiles.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/functions/insertMigration.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Controllers/ArticleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/ArticleController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Controllers/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/LoginController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Controllers/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/RegisterController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Core/Db.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Core/Db.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/Core/Model.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Core/Model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Models/Article.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Models/Article.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Public/js/bootstrap.bundle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Public/js/bootstrap.bundle.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Public/js/bootstrap.bundle.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Public/js/bootstrap.bundle.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Public/js/bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Public/js/bootstrap.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Public/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Public/js/bootstrap.min.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/command" beforeDir="false" afterPath="$PROJECT_DIR$/command" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commands/make_migration.php" beforeDir="false" afterPath="$PROJECT_DIR$/commands/make:migration.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commands/migrate.php" beforeDir="false" afterPath="$PROJECT_DIR$/commands/migrate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,16 +91,16 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/App/Views/Article" />
-      <recent name="$PROJECT_DIR$/App/Public" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/App/Forms/User" />
       <recent name="$PROJECT_DIR$/App/Forms" />
       <recent name="$PROJECT_DIR$/App/Views/Main" />
       <recent name="$PROJECT_DIR$/App/Views" />
       <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/App/Views/Article" />
+      <recent name="$PROJECT_DIR$/App/Public" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -148,7 +159,9 @@
       <workItem from="1606351475679" duration="588000" />
       <workItem from="1606375375853" duration="17897000" />
       <workItem from="1606429109927" duration="3376000" />
-      <workItem from="1606460779492" duration="20554000" />
+      <workItem from="1606460779492" duration="20729000" />
+      <workItem from="1606496120330" duration="8978000" />
+      <workItem from="1606587412727" duration="78602000" />
     </task>
     <task id="LOCAL-00001" summary="update auth (unique email, some fix)">
       <created>1605050499298</created>
@@ -241,7 +254,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606433781070</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Add cli command script that allows make migration class">
+      <created>1606486804790</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1606486804790</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -258,7 +278,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="main" />
+                        <option value="origin/main" />
                       </list>
                     </value>
                   </entry>
@@ -300,17 +320,18 @@
     <MESSAGE value="Add article model, controller, view. Change base model class." />
     <MESSAGE value="Add Db class, modify model class, change indexes." />
     <MESSAGE value="Add method connect to Db class, change base model class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add method connect to Db class, change base model class" />
+    <MESSAGE value="Add cli command script that allows make migration class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add cli command script that allows make migration class" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="2198" y="240" width="732" height="644" key="#Inspections" timestamp="1606334532353">
+    <state x="2198" y="240" width="732" height="644" key="#Inspections" timestamp="1606681091232">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
-    <state x="2198" y="240" width="732" height="644" key="#Inspections/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1606334532353" />
-    <state x="1938" y="198" width="1026" height="746" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606340557970">
+    <state x="2198" y="240" width="732" height="644" key="#Inspections/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1606681091232" />
+    <state x="1938" y="198" width="1026" height="746" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1606511976477">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
-    <state x="1938" y="198" width="1026" height="746" key="#com.intellij.execution.impl.EditConfigurationsDialog/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1606340557970" />
+    <state x="1938" y="198" width="1026" height="746" key="#com.intellij.execution.impl.EditConfigurationsDialog/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1606511976477" />
     <state x="2294" y="377" width="598" height="403" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1606475852109">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
@@ -340,25 +361,25 @@
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state x="2296" y="483" width="417" height="201" key="Github.CreateGistDialog/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1606239968349" />
-    <state x="2242" y="356" width="545" height="575" key="NewPhpClassDialog" timestamp="1606483610758">
+    <state x="2242" y="356" width="545" height="575" key="NewPhpClassDialog" timestamp="1606670011757">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
-    <state x="2242" y="356" width="545" height="575" key="NewPhpClassDialog/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1606483610758" />
-    <state x="2416" y="447" width="629" height="156" key="NewPhpFileDialog" timestamp="1606484411593">
+    <state x="2242" y="356" width="545" height="575" key="NewPhpClassDialog/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1606670011757" />
+    <state x="2510" y="460" width="629" height="156" key="NewPhpFileDialog" timestamp="1606742718316">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state x="1740" y="552" width="629" height="156" key="NewPhpFileDialog/0.27.3520.1053@0.27.3520.1053" timestamp="1604933743985" />
-    <state x="2416" y="447" width="343" height="156" key="NewPhpFileDialog/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1606484411593" />
+    <state x="2510" y="460" width="343" height="156" key="NewPhpFileDialog/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1606742718316" />
     <state x="825" y="462" width="331" height="149" key="NewPhpFileDialog/67.27.1533.873@67.27.1533.873" timestamp="1604651733807" />
     <state x="983" y="552" width="399" height="149" key="NewPhpFileDialog/67.27.1853.1053/1920.0.1600.900@67.27.1853.1053" timestamp="1604748428749" />
     <state x="2389" y="192" width="1022" height="737" key="SettingsEditor" timestamp="1604858535633">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state x="2389" y="192" width="1022" height="737" key="SettingsEditor/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1604858535633" />
-    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1606433791791">
+    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1606486812080">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
-    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1606433791791" />
+    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1606486812080" />
     <state x="2169" y="141" width="1256" height="868" key="dock-window-1" timestamp="1606292994769">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
