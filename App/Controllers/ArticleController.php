@@ -14,7 +14,7 @@ class ArticleController extends Controller
 {
     public function IndexAction()
     {
-        $article = Article::getById($this->routeParams['id']);
+        $article = Article::getByIdWithUserInfo($this->routeParams['id']);
         if ($article) {
             $this->view->render("Статья", [
                 'article' => $article,
@@ -29,7 +29,7 @@ class ArticleController extends Controller
     public function ListAction()
     {
         $this->view->render("Статьи", [
-            'articles' => Article::getAll()
+            'articles' => Article::getAllWithUserInfo()
         ]);
     }
 

@@ -16,6 +16,40 @@
             <h1>Имя: <?=$user['name']?></h1>
             <p>Email: <?=$user['email']?></p>
             <p>Номер телефона: <?=$user['phone']?></p>
+            <?php if (isset($articles) && !empty($articles)){ ?>
+                <h1>Статьи</h1>
+                <?php foreach ($articles as $article) { ?>
+                    <div class="block">
+                        <h3>Заголовок: <a href="/article/<?= $article['id'] ?>"><?= $article['heading'] ?></a></h3>
+                        <p>Дата создания: <?= $article['creation_date'] ?></p>
+
+                        <p>Создатель: <a href="/user/<?= $article['user_id'] ?>"><?=$article['user_name']?></a>
+                        <p>email: <?=$article['user_email']?></p>
+                        <p>Номер телефона: <?=$article['user_phone']?></p>
+                        </p>
+
+                        <?php if (isset($article['updater_id'])) { ?>
+                            <p>Дата изменения: <?=$article['updating_date'];?></p>
+                            <p>Изменил:
+                                <a href="/user/<?= $article['updater_id'] ?>">Профиль</a>
+                            </p>
+                        <?php } else { ?>
+                            <p>Не изменено или удалён последний редактор</p>
+                        <?php } ?>
+
+                        <?php if (isset($_SESSION['isAuthorize']) && $_SESSION['isAuthorize']) { ?>
+                            <a class="btn btn-warning" href="/article/<?= $article['id'] ?>/update">Редактировать</a>
+                            <a class="btn btn-danger" href="/article/<?= $article['id'] ?>/delete">Удалить</a>
+                        <?php } ?>
+                        <hr>
+                    </div>
+                <?php } ?>
+                <?php if (isset($_SESSION['isAuthorize']) && $_SESSION['isAuthorize']) { ?>
+                    <a class="btn btn-primary" href="/article/create/new">Добавить</a>
+                <?php } ?>
+            <?php } else { ?>
+                <h1>У пользователя нет статей</h1>
+            <?php } ?>
         <?php } ?>
     <?php } else {
         header('HTTP/1.1 401 Unauthorized');

@@ -16,7 +16,7 @@ foreach ($migration_files as $migration_file) {
         $migration = new $class();
         try {
             $migration->down();
-            unlink($migration_file);
+            //unlink($migration_file);
             deleteMigration(str_replace('database/migrations/', '', $migration_file));
         } catch (\PDOException $ex) {
             die($ex->getMessage());

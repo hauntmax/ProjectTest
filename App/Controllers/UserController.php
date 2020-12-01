@@ -8,6 +8,7 @@ use App\Forms\User\UserCreateForm;
 use App\Forms\User\UserDeleteForm;
 use App\Forms\User\UserUpdateForm;
 use App\Models\User;
+use App\Models\Article;
 
 
 class UserController extends Controller
@@ -17,7 +18,8 @@ class UserController extends Controller
         $user = User::getById($this->routeParams['id']);
         if ($user) {
             $this->view->render("Пользователь", [
-                'user' => $user
+                'user' => $user,
+                'articles' => Article::getAllByUserId($user['id'])
             ]);
         } else {
             $this->view->render("Пользователь", [

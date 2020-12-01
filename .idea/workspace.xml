@@ -19,37 +19,21 @@
     <select>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:origin/main" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:main" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4dcfb0b-aa29-42a5-ad15-244af93fe6d2" name="Default Changelist" comment="Add cli command script that allows make migration class">
-      <change afterPath="$PROJECT_DIR$/App/Core/Schema.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/App/Lib/registerclass.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/commands/list.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/commands/migrate:rollback.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/functions/createVersionsTable.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/functions/deleteMigration.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/functions/getMigrationFiles.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/functions/insertMigration.php" afterDir="false" />
+    <list default="true" id="a4dcfb0b-aa29-42a5-ad15-244af93fe6d2" name="Default Changelist" comment="Modify migration mechanism, add rollback last migration, some fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Core/Db.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Core/Db.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Core/Model.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Core/Model.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Public/js/bootstrap.bundle.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Public/js/bootstrap.bundle.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Public/js/bootstrap.bundle.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Public/js/bootstrap.bundle.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Public/js/bootstrap.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Public/js/bootstrap.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Public/js/bootstrap.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/Public/js/bootstrap.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/command" beforeDir="false" afterPath="$PROJECT_DIR$/command" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/make_migration.php" beforeDir="false" afterPath="$PROJECT_DIR$/commands/make:migration.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/commands/migrate.php" beforeDir="false" afterPath="$PROJECT_DIR$/commands/migrate.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Controllers/ArticleController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/ArticleController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Models/Article.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Models/Article.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Views/Article/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Article/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Views/Article/list.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/Article/list.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/Views/User/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/App/Views/User/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/commands/migrate:rollback.php" beforeDir="false" afterPath="$PROJECT_DIR$/commands/migrate:rollback.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +67,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Загрузки/sql" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Загрузки/sql" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -161,7 +145,8 @@
       <workItem from="1606429109927" duration="3376000" />
       <workItem from="1606460779492" duration="20729000" />
       <workItem from="1606496120330" duration="8978000" />
-      <workItem from="1606587412727" duration="78602000" />
+      <workItem from="1606587412727" duration="79931000" />
+      <workItem from="1606774894630" duration="10845000" />
     </task>
     <task id="LOCAL-00001" summary="update auth (unique email, some fix)">
       <created>1605050499298</created>
@@ -261,7 +246,14 @@
       <option name="project" value="LOCAL" />
       <updated>1606486804790</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Modify migration mechanism, add rollback last migration, some fix">
+      <created>1606773847580</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1606773847580</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -278,7 +270,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/main" />
+                        <option value="main" />
                       </list>
                     </value>
                   </entry>
@@ -321,7 +313,8 @@
     <MESSAGE value="Add Db class, modify model class, change indexes." />
     <MESSAGE value="Add method connect to Db class, change base model class" />
     <MESSAGE value="Add cli command script that allows make migration class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add cli command script that allows make migration class" />
+    <MESSAGE value="Modify migration mechanism, add rollback last migration, some fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modify migration mechanism, add rollback last migration, some fix" />
   </component>
   <component name="WindowStateProjectService">
     <state x="2198" y="240" width="732" height="644" key="#Inspections" timestamp="1606681091232">
@@ -376,10 +369,10 @@
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state x="2389" y="192" width="1022" height="737" key="SettingsEditor/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1604858535633" />
-    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1606486812080">
+    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1606773863029">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
-    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1606486812080" />
+    <state x="2205" y="311" width="800" height="535" key="Vcs.Push.Dialog.v2/1600.0.1920.1080/0.27.1600.873@1600.0.1920.1080" timestamp="1606773863029" />
     <state x="2169" y="141" width="1256" height="868" key="dock-window-1" timestamp="1606292994769">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
