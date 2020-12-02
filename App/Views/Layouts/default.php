@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="/App/Public/css/style.css">
     <link rel="stylesheet" href="/App/Public/css/bootstrap.min.css">
     <link rel="stylesheet" href="/App/Public/css/bootstrap-grid.min.css">
-    <title><?=$title?></title>
+    <link rel="stylesheet" href="/App/Public/css/star_rating.css">
+    <title><?= $title ?></title>
 </head>
 <body>
 
@@ -32,25 +33,25 @@
             <p>Разработка- это просто</p>
         </div>
 
-         <!--блок с авторизацией -->
-        <?php if (isset($_SESSION['isAuthorize'])) {
-            if ($_SESSION['isAuthorize']) { ?>
+        <!--блок с авторизацией -->
+        <?php if (isset($_SESSION['isAuthorize'])) :
+            if ($_SESSION['isAuthorize']) : ?>
                 <div class="block-top-auth">
-                    <p><a href="/user/<?=$_SESSION['userId']?>"><?=$_SESSION['email']?></a></p>
+                    <p><a href="/user/<?= $_SESSION['userId'] ?>"><?= $_SESSION['email'] ?></a></p>
                     <p><a href="/login/logout">Выйти</a></p>
                 </div>
-            <?php } else { ?>
+            <?php else : ?>
                 <div class="block-top-auth">
                     <p><a href="/login">Вход</a></p>
                     <p><a href="/register">Регистрация</a></p>
                 </div>
-            <?php } ?>
-        <?php } else { ?>
+            <?php endif; ?>
+        <?php else : ?>
             <div class="block-top-auth">
                 <p><a href="/login">Вход</a></p>
                 <p><a href="/register">Регистрация</a></p>
             </div>
-        <?php } ?>
+        <?php endif; ?>
 
     </header>
 
@@ -62,5 +63,7 @@
 
 </div>
 
+<script src="/App/Public/js/jquery.js"></script>
+<script src="/App/Public/js/star_rating.js"></script>
 </body>
 </html>

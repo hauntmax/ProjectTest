@@ -1,16 +1,16 @@
 <div class="content">
-    <?php if (isset($_SESSION['isAuthorize']) && $_SESSION['isAuthorize']) { ?>
-        <?php if (isset($errorUnique)) { ?>
+    <?php if (isset($_SESSION['isAuthorize']) && $_SESSION['isAuthorize']) : ?>
+        <?php if (isset($errorUnique)) : ?>
             <p class="alert-danger"><?= $errorUnique ?></p>
-        <?php } ?>
-        <?php if (isset($errorsValidate)) { ?>
-            <?php foreach ($errorsValidate as $error) { ?>
+        <?php endif; ?>
+        <?php if (isset($errorsValidate)) : ?>
+            <?php foreach ($errorsValidate as $error) : ?>
                 <p class="alert-danger"><?= $error ?></p>
-            <?php } ?>
-        <?php } ?>
-        <?php if (isset($errorFind)) { ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        <?php if (isset($errorFind)) : ?>
             <h1><?= $errorFind ?></h1>
-        <?php } else { ?>
+        <?php else : ?>
             <form enctype="multipart/form-data" name="add-user" action="" method="post">
                 <div class="form-group">
                     <label for="name">Имя</label>
@@ -41,12 +41,12 @@
                     <input type="submit" name="submit" id="submit" value="Обновить" class="btn btn-primary">
                 </div>
             </form>
-        <?php } ?>
-    <?php } else {
+        <?php endif; ?>
+    <?php else :
         header('HTTP/1.1 401 Unauthorized');
         header("Status: 401 Unauthorized"); ?>
         <div class="block">
             <h3>Для редактирования пользователя нужно авторизоваться</h3>
         </div>
-    <?php } ?>
+    <?php endif; ?>
 </div>

@@ -1,13 +1,13 @@
 <div class="content">
-    <?php if (isset($errorUnique)) { ?>
+    <?php if (isset($errorUnique)) : ?>
         <p class="alert-danger"><?= $errorUnique ?></p>
-    <?php } ?>
-    <?php if (isset($errorsValidate)) { ?>
-        <?php foreach ($errorsValidate as $error) { ?>
+    <?php endif; ?>
+    <?php if (isset($errorsValidate)) : ?>
+        <?php foreach ($errorsValidate as $error) : ?>
             <p class="alert-danger"><?= $error ?></p>
-        <?php } ?>
-    <?php } ?>
-    <?php if (!isset($_SESSION['successMessageRegister'])) { ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+    <?php if (!isset($_SESSION['successMessageRegister'])) : ?>
         <form enctype="multipart/form-data" name="add-user" action="" method="post">
             <div class="form-group">
                 <label for="name">Имя</label>
@@ -38,7 +38,7 @@
                 <input type="submit" name="submit" id="submit" value="Зарегистрироваться" class="btn btn-primary">
             </div>
         </form>
-    <?php } else { ?>
+    <?php else : ?>
         <h2><?= $_SESSION['successMessageRegister'] ?></h2>
-    <?php } ?>
+    <?php endif; ?>
 </div>

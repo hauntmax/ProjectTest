@@ -3,7 +3,6 @@
 
 namespace App\Models;
 
-
 use App\Core\Db;
 use App\Core\Model;
 
@@ -19,8 +18,8 @@ class Article extends Model
      */
     private static function selectQueryWithUserInfo()
     {
-        return "SELECT articles.id as id,user_id,users.email as user_email,users.name as user_name,users.phone as user_phone,
-                       heading,text,updater_id,creation_date,updating_date
+        return "SELECT articles.id as id,user_id,users.email as user_email,users.name as user_name,
+                       users.phone as user_phone,heading,text,updater_id,creation_date,updating_date
                 FROM articles JOIN users ON " . self::$tableName . ".user_id = users.id ";
     }
 

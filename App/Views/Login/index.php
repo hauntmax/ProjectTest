@@ -1,7 +1,7 @@
 <div class="content">
-    <?php if (isset($errorLogin)) { ?>
-        <h3 class="alert-danger"><?=$errorLogin?></h3>
-    <?php } ?>
+    <?php if (isset($errorLogin)) : ?>
+        <h3 class="alert-danger"><?= $errorLogin ?></h3>
+    <?php endif; ?>
     <form name="login-form" action="" method="post">
         <div class="form-group">
             <label for="email">Email</label>

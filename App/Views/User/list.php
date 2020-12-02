@@ -1,7 +1,7 @@
 <div class="content">
     <?php if (isset($_SESSION['isAuthorize']) && $_SESSION['isAuthorize']) { ?>
         <?php
-        var_dump($users);
+        //var_dump($users);
         foreach ($users as $user) { ?>
             <div class="block">
                 <?php if (isset($user['status_account']) && $user['status_account']) { ?>
